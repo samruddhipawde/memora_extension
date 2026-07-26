@@ -1,173 +1,47 @@
 .top-tags{
 
-background:linear-gradient(145deg,#181D2A,#22293A);
+    background:#111827;
 
-border:1px solid rgba(255,255,255,.06);
+    border-radius:22px;
 
-border-radius:22px;
+    padding:24px;
 
-padding:24px;
-
-box-shadow:0 12px 35px rgba(0,0,0,.18);
-
-transition:.3s;
+    border:1px solid rgba(255,255,255,.06);
 
 }
 
-.top-tags:hover{
+.tags-list{
 
-transform:translateY(-5px);
+    display:flex;
 
-box-shadow:0 18px 45px rgba(139,92,246,.18);
+    flex-wrap:wrap;
 
-}
+    gap:12px;
 
-.top-card-header{
-
-display:flex;
-
-align-items:center;
-
-gap:16px;
-
-margin-bottom:22px;
+    margin-top:20px;
 
 }
 
-.tag-icon{
+.tag{
 
-width:52px;
+    background:#1E293B;
 
-height:52px;
+    color:#CBD5E1;
 
-border-radius:16px;
+    padding:10px 16px;
 
-display:flex;
+    border-radius:999px;
 
-align-items:center;
+    transition:.3s;
 
-justify-content:center;
-
-background:linear-gradient(135deg,#8B5CF6,#6D28D9);
-
-color:white;
-
-box-shadow:0 12px 24px rgba(139,92,246,.30);
+    cursor:pointer;
 
 }
 
-.top-card-header h3{
+.tag:hover{
 
-margin:0;
+    background:#8B5CF6;
 
-font-size:20px;
-
-font-weight:700;
-
-color:white;
-
-}
-
-.top-card-header span{
-
-display:block;
-
-margin-top:4px;
-
-font-size:13px;
-
-color:#94A3B8;
-
-}
-
-.tag-list{
-
-display:flex;
-
-flex-wrap:wrap;
-
-gap:14px;
-
-}
-
-.tag-chip{
-
-display:flex;
-
-align-items:center;
-
-justify-content:space-between;
-
-gap:12px;
-
-padding:12px 18px;
-
-background:#1F2937;
-
-border-radius:999px;
-
-border:1px solid transparent;
-
-transition:.25s;
-
-min-width:130px;
-
-}
-
-.tag-chip:hover{
-
-border-color:#8B5CF6;
-
-background:#253046;
-
-transform:translateY(-2px);
-
-}
-
-.tag-chip span{
-
-color:white;
-
-font-size:14px;
-
-font-weight:600;
-
-}
-
-.tag-chip strong{
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-min-width:28px;
-
-height:28px;
-
-border-radius:50%;
-
-background:#8B5CF6;
-
-color:white;
-
-font-size:12px;
-
-font-weight:700;
-
-}
-
-.empty{
-
-padding:24px;
-
-text-align:center;
-
-color:#94A3B8;
-
-border:1px dashed rgba(255,255,255,.08);
-
-border-radius:14px;
+    color:white;
 
 }

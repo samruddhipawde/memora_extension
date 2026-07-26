@@ -4,11 +4,11 @@ height:80px;
 
 display:flex;
 
-align-items:center;
-
 justify-content:space-between;
 
-padding:0 35px;
+align-items:center;
+
+padding:0 24px;
 
 background:#111827;
 
@@ -28,57 +28,33 @@ display:flex;
 
 align-items:center;
 
-gap:20px;
-
-}
-
-.nav-icon{
-
-width:45px;
-
-height:45px;
-
-border:none;
-
-background:#1F2937;
-
-border-radius:14px;
-
-color:white;
-
-cursor:pointer;
-
-transition:.3s;
-
-}
-
-.nav-icon:hover{
-
-background:#7C3AED;
+gap:18px;
 
 }
 
 .search-box{
 
+width:340px;
+
+height:48px;
+
 display:flex;
 
 align-items:center;
 
-gap:12px;
+padding:0 18px;
 
 background:#1F2937;
 
-padding:0 20px;
+border-radius:14px;
 
-height:50px;
-
-border-radius:16px;
-
-width:420px;
+gap:12px;
 
 }
 
 .search-box input{
+
+width:100%;
 
 background:none;
 
@@ -87,10 +63,6 @@ border:none;
 outline:none;
 
 color:white;
-
-width:100%;
-
-font-size:15px;
 
 }
 
@@ -106,39 +78,57 @@ display:flex;
 
 align-items:center;
 
-gap:16px;
+gap:14px;
 
 }
 
-.save-btn{
+.nav-icon{
 
-height:48px;
+width:42px;
 
-padding:0 24px;
+height:42px;
 
 border:none;
 
-border-radius:14px;
+border-radius:12px;
 
-background:linear-gradient(135deg,#7C3AED,#A855F7);
+background:#1F2937;
 
 color:white;
-
-font-weight:600;
-
-display:flex;
-
-align-items:center;
-
-gap:10px;
 
 cursor:pointer;
 
 }
 
-.save-btn:hover{
+.nav-icon:hover{
 
-opacity:.95;
+background:#8B5CF6;
+
+}
+
+.save-btn{
+
+height:46px;
+
+padding:0 18px;
+
+display:flex;
+
+align-items:center;
+
+gap:8px;
+
+border:none;
+
+border-radius:12px;
+
+background:linear-gradient(135deg,#8B5CF6,#2563EB);
+
+color:white;
+
+font-weight:600;
+
+cursor:pointer;
 
 }
 
@@ -148,17 +138,15 @@ display:flex;
 
 align-items:center;
 
-gap:12px;
-
-margin-left:8px;
+gap:10px;
 
 }
 
 .avatar{
 
-width:48px;
+width:40px;
 
-height:48px;
+height:40px;
 
 border-radius:50%;
 
@@ -166,23 +154,23 @@ background:#8B5CF6;
 
 display:flex;
 
-justify-content:center;
-
 align-items:center;
 
-font-size:18px;
-
-font-weight:bold;
+justify-content:center;
 
 color:white;
+
+font-weight:bold;
 
 }
 
 .profile-box h4{
 
-color:white;
+margin:0;
 
-font-size:15px;
+font-size:14px;
+
+color:white;
 
 }
 
@@ -202,15 +190,9 @@ display:none;
 
 }
 
-.profile-box div:last-child{
+.profile-box div{
 
 display:none;
-
-}
-
-.save-btn{
-
-padding:0 16px;
 
 }
 

@@ -12,17 +12,21 @@ import TopDomains from "./TopDomains";
 import TopTags from "./TopTags";
 import ChatWidget from "./ChatWidget";
 import MostVisited from "./MostVisited";
+import CollectionsPreview from "./CollectionsPreview";
 
 const DashboardBody = () => {
+
   const { user } = useAuth();
 
   return (
+
     <motion.div
       className="dashboard-body"
-      initial={{ opacity: 0, y: 25 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
+      initial={{ opacity:0,y:20 }}
+      animate={{ opacity:1,y:0 }}
+      transition={{ duration:.4 }}
     >
+
       <HeroBanner user={user} />
 
       <QuickActions />
@@ -30,24 +34,35 @@ const DashboardBody = () => {
       <StatsSection />
 
       <div className="dashboard-grid">
-       <div className="left-column">
 
-  <RecentMemories />
+        <div className="left-column">
 
-  <MostVisited />
+          <RecentMemories />
 
-</div>
+          <CollectionsPreview />
+
+          <MostVisited />
+
+        </div>
 
         <div className="right-column">
+
           <InsightCard />
+
           <TopDomains />
+
           <TopTags />
+
         </div>
+
       </div>
 
       <ChatWidget />
+
     </motion.div>
+
   );
+
 };
 
 export default DashboardBody;

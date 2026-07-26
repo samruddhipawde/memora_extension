@@ -1,5 +1,7 @@
 import "./ChatHistory.css";
 
+import { MessageSquare } from "lucide-react";
+
 const ChatHistory = ({ chats = [], onSelect }) => {
 
   return (
@@ -12,11 +14,19 @@ const ChatHistory = ({ chats = [], onSelect }) => {
 
         (
 
-          <p className="empty-history">
+          <div className="empty-history">
 
-            No conversations yet
+            <MessageSquare size={40} />
 
-          </p>
+            <h3>No Chats Yet</h3>
+
+            <p>
+
+              Start a conversation with Memora AI.
+
+            </p>
+
+          </div>
 
         )
 
@@ -24,7 +34,7 @@ const ChatHistory = ({ chats = [], onSelect }) => {
 
         (
 
-          chats.map(chat => (
+          chats.map((chat) => (
 
             <div
 
@@ -36,9 +46,27 @@ const ChatHistory = ({ chats = [], onSelect }) => {
 
             >
 
-              <h4>{chat.title}</h4>
+              <div className="history-icon">
 
-              <span>{chat.date}</span>
+                <MessageSquare size={18} />
+
+              </div>
+
+              <div className="history-content">
+
+                <h4>
+
+                  {chat.title}
+
+                </h4>
+
+                <span>
+
+                  {chat.date}
+
+                </span>
+
+              </div>
 
             </div>
 

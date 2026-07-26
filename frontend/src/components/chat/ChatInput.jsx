@@ -6,7 +6,7 @@ import {
   Send,
   Mic,
   Paperclip,
-  Smile
+  Smile,
 } from "lucide-react";
 
 const ChatInput = ({ onSend }) => {
@@ -17,11 +17,10 @@ const ChatInput = ({ onSend }) => {
 
     if (!message.trim()) return;
 
-    if (onSend) {
-      onSend(message);
-    }
+    onSend?.(message);
 
     setMessage("");
+
   };
 
   return (
@@ -29,26 +28,32 @@ const ChatInput = ({ onSend }) => {
     <div className="chat-input">
 
       <button className="icon-btn">
-        <Paperclip size={20}/>
-      </button>
 
-      <button className="icon-btn">
-        <Smile size={20}/>
+        <Paperclip size={19} />
+
       </button>
 
       <textarea
 
-        rows="1"
+        rows={1}
 
-        placeholder="Ask Memora AI anything..."
+        placeholder="Ask Memora AI about your memories..."
 
         value={message}
 
-        onChange={(e)=>setMessage(e.target.value)}
+        onChange={(e) => setMessage(e.target.value)}
 
-        onKeyDown={(e)=>{
+        onInput={(e) => {
 
-          if(e.key==="Enter" && !e.shiftKey){
+          e.target.style.height = "auto";
+
+          e.target.style.height = e.target.scrollHeight + "px";
+
+        }}
+
+        onKeyDown={(e) => {
+
+          if (e.key === "Enter" && !e.shiftKey) {
 
             e.preventDefault();
 
@@ -61,7 +66,15 @@ const ChatInput = ({ onSend }) => {
       />
 
       <button className="icon-btn">
-        <Mic size={20}/>
+
+        <Smile size={19} />
+
+      </button>
+
+      <button className="icon-btn">
+
+        <Mic size={19} />
+
       </button>
 
       <button
@@ -72,7 +85,7 @@ const ChatInput = ({ onSend }) => {
 
       >
 
-        <Send size={18}/>
+        <Send size={18} />
 
       </button>
 

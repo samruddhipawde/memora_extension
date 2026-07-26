@@ -1,94 +1,184 @@
 .profile-card{
 
-max-width:700px;
+max-width:760px;
 
 margin:auto;
 
-background:#111827;
-
 padding:40px;
 
-border-radius:24px;
+border-radius:26px;
 
-text-align:center;
+background:rgba(17,24,39,.88);
 
-border:1px solid #27272A;
+backdrop-filter:blur(20px);
 
-animation:fade .4s;
+border:1px solid rgba(255,255,255,.08);
+
+box-shadow:0 20px 45px rgba(0,0,0,.25);
+
+animation:fade .5s;
+
+}
+
+.profile-top{
+
+display:flex;
+
+align-items:center;
+
+gap:24px;
+
+margin-bottom:35px;
 
 }
 
 .avatar{
 
-width:120px;
+width:110px;
 
-height:120px;
-
-margin:auto;
+height:110px;
 
 border-radius:50%;
 
-background:#8B5CF6;
+background:linear-gradient(135deg,#8B5CF6,#6366F1);
 
 display:flex;
 
 justify-content:center;
 
 align-items:center;
+
+font-size:42px;
+
+font-weight:700;
 
 color:white;
 
-margin-bottom:25px;
+box-shadow:0 10px 30px rgba(139,92,246,.35);
+
+flex-shrink:0;
 
 }
 
-.profile-card h2{
+.profile-top h2{
 
 color:white;
 
-margin-bottom:10px;
+font-size:30px;
+
+margin:0;
 
 }
 
-.profile-card p{
+.profile-top span{
+
+color:#94A3B8;
+
+font-size:15px;
+
+}
+
+.profile-details{
 
 display:flex;
 
-justify-content:center;
+flex-direction:column;
+
+gap:18px;
+
+margin-bottom:35px;
+
+}
+
+.profile-row{
+
+display:flex;
 
 align-items:center;
 
-gap:8px;
+gap:14px;
 
-color:#CBD5E1;
-
-margin-bottom:30px;
-
-}
-
-.profile-info{
-
-display:flex;
-
-justify-content:center;
-
-}
-
-.profile-info div{
-
-display:flex;
-
-align-items:center;
-
-gap:10px;
+padding:16px 18px;
 
 background:#1E293B;
 
-padding:18px 25px;
+border-radius:16px;
 
-border-radius:15px;
+color:#E2E8F0;
+
+transition:.25s;
+
+}
+
+.profile-row:hover{
+
+background:#273549;
+
+}
+
+.profile-row svg{
+
+color:#A78BFA;
+
+}
+
+.profile-stats{
+
+display:grid;
+
+grid-template-columns:repeat(3,1fr);
+
+gap:20px;
+
+}
+
+.profile-stats div{
+
+background:#1E293B;
+
+border-radius:18px;
+
+padding:22px;
+
+text-align:center;
+
+transition:.3s;
+
+}
+
+.profile-stats div:hover{
+
+transform:translateY(-5px);
+
+background:#263446;
+
+}
+
+.profile-stats svg{
+
+color:#8B5CF6;
+
+margin-bottom:12px;
+
+}
+
+.profile-stats h3{
 
 color:white;
+
+font-size:28px;
+
+margin-bottom:6px;
+
+}
+
+.profile-stats p{
+
+color:#94A3B8;
+
+font-size:14px;
+
+margin:0;
 
 }
 
@@ -107,6 +197,24 @@ to{
 opacity:1;
 
 transform:translateY(0);
+
+}
+
+}
+
+@media(max-width:768px){
+
+.profile-top{
+
+flex-direction:column;
+
+text-align:center;
+
+}
+
+.profile-stats{
+
+grid-template-columns:1fr;
 
 }
 

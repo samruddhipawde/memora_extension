@@ -4,19 +4,13 @@ const TypingIndicator = () => {
 
   return (
 
-    <div className="typing-container">
+    <div className="typing">
 
-      <div className="avatar-mini">
-        AI
-      </div>
+      <span></span>
 
-      <div className="typing-box">
+      <span></span>
 
-        <span></span>
-        <span></span>
-        <span></span>
-
-      </div>
+      <span></span>
 
     </div>
 

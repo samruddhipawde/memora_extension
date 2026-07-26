@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import ProtectedRoute from "./ProtectedRoute";
 
@@ -15,18 +15,23 @@ import Favorites from "../pages/Favorites/Favorites";
 import Memories from "../pages/Memories/Memories";
 import ChatPage from "../pages/Chat/ChatPage";
 
-
 const AppRoutes = () => {
+
   return (
+
     <BrowserRouter>
+
       <Routes>
 
-        {/* Public */}
         <Route path="/login" element={<Login />} />
 
-        {/* Protected */}
         <Route
           path="/"
+          element={<Navigate to="/dashboard" replace />}
+        />
+
+        <Route
+          path="/dashboard"
           element={
             <ProtectedRoute>
               <Dashboard />
@@ -34,20 +39,38 @@ const AppRoutes = () => {
           }
         />
 
-<Route
-  path="/memories"
-  element={
-    <ProtectedRoute>
-      <Memories />
-    </ProtectedRoute>
-  }
-/>
+        <Route
+          path="/collections"
+          element={
+            <ProtectedRoute>
+              <Collections />
+            </ProtectedRoute>
+          }
+        />
 
         <Route
           path="/collections/:id"
           element={
             <ProtectedRoute>
               <CollectionDetails />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/memories"
+          element={
+            <ProtectedRoute>
+              <Memories />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/favorites"
+          element={
+            <ProtectedRoute>
+              <Favorites />
             </ProtectedRoute>
           }
         />
@@ -89,40 +112,22 @@ const AppRoutes = () => {
         />
 
         <Route
-  path="/collections"
-  element={
-    <ProtectedRoute>
-      <Collections />
-    </ProtectedRoute>
-  }
-/>
+          path="/chat"
+          element={
+            <ProtectedRoute>
+              <ChatPage />
+            </ProtectedRoute>
+          }
+        />
 
-<Route
-  path="/favorites"
-  element={
-    <ProtectedRoute>
-      <Favorites />
-    </ProtectedRoute>
-  }
-/>
-
-<Route
-  path="/chat"
-  element={
-    <ProtectedRoute>
-      <ChatPage />
-    </ProtectedRoute>
-  }
-/>
-
-
-
-        {/* 404 */}
         <Route path="*" element={<NotFound />} />
 
       </Routes>
+
     </BrowserRouter>
+
   );
+
 };
 
 export default AppRoutes;

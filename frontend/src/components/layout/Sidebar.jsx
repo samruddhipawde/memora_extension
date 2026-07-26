@@ -1,98 +1,60 @@
 import "./Sidebar.css";
-import Logo from "../../assets/logo/memora-logo.png";
 
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useState } from "react";
 
 import {
   LayoutDashboard,
-  Brain,
   FolderKanban,
-  Sparkles,
+  BrainCircuit,
+  MessageSquare,
   User,
   Settings,
-  Heart,
-  Clock,
-  MessageCircle,
-  Menu,
-  Search,
+  ChevronLeft,
 } from "lucide-react";
 
-const Sidebar = () => {
+import logo from "../../assets/logo/memora-logo.png";
 
-  const navigate = useNavigate();
+const Sidebar = () => {
 
   const [collapsed, setCollapsed] = useState(false);
 
   const menu = [
 
     {
-      title: "MAIN",
-      items: [
-        {
-          icon: <LayoutDashboard size={20} />,
-          label: "Dashboard",
-          path: "/",
-        },
-      ],
+      name: "Dashboard",
+      icon: <LayoutDashboard size={20} />,
+      path: "/dashboard",
     },
 
     {
-      title: "MEMORIES",
-      items: [
-        {
-          icon: <Brain size={20} />,
-          label: "All Memories",
-          path: "/memories",
-        },
-        {
-          icon: <Search size={20} />,
-          label: "Search",
-          path: "/search",
-        },
-        {
-          icon: <Heart size={20} />,
-          label: "Favorites",
-          path: "/favorites",
-        },
-        {
-          icon: <Clock size={20} />,
-          label: "Recent",
-          path: "/recent",
-        },
-      ],
+      name: "Collections",
+      icon: <FolderKanban size={20} />,
+      path: "/collections",
     },
 
     {
-      title: "AI",
-      items: [
-        {
-          icon: <Sparkles size={20} />,
-          label: "AI Chat",
-          path: "/chat",
-        },
-        {
-          icon: <FolderKanban size={20} />,
-          label: "Collections",
-          path: "/collections",
-        },
-      ],
+      name: "AI Chat",
+      icon: <BrainCircuit size={20} />,
+      path: "/chat",
     },
 
     {
-      title: "ACCOUNT",
-      items: [
-        {
-          icon: <User size={20} />,
-          label: "Profile",
-          path: "/profile",
-        },
-        {
-          icon: <Settings size={20} />,
-          label: "Settings",
-          path: "/settings",
-        },
-      ],
+      name: "History",
+      icon: <MessageSquare size={20} />,
+      path: "/history",
+    },
+
+    {
+      name: "Profile",
+      icon: <User size={20} />,
+      path: "/profile",
+    },
+
+    {
+      name: "Settings",
+      icon: <Settings size={20} />,
+      path: "/settings",
     },
 
   ];
@@ -106,22 +68,26 @@ const Sidebar = () => {
         <div className="logo-section">
 
           <img
-            src={Logo}
+            src={logo}
             alt="Memora"
             className="sidebar-logo"
           />
 
-          {!collapsed && (
+          {
 
-            <div>
+            !collapsed && (
 
-              <h2>Memora</h2>
+              <div>
 
-              <p>Your Second Brain</p>
+                <h2>Memora</h2>
 
-            </div>
+                <p>Your AI Memory</p>
 
-          )}
+              </div>
+
+            )
+
+          }
 
         </div>
 
@@ -129,25 +95,26 @@ const Sidebar = () => {
           className="collapse-btn"
           onClick={() => setCollapsed(!collapsed)}
         >
-          <Menu size={20} />
+
+          <ChevronLeft
+            size={18}
+            style={{
+              transform: collapsed
+                ? "rotate(180deg)"
+                : "rotate(0deg)",
+              transition: ".3s",
+            }}
+          />
+
         </button>
 
       </div>
 
-      {menu.map((group) => (
+      <div className="menu-group">
 
-        <div
-          className="menu-group"
-          key={group.title}
-        >
+        {
 
-          {!collapsed && (
-            <p className="menu-title">
-              {group.title}
-            </p>
-          )}
-
-          {group.items.map((item) => (
+          menu.map((item) => (
 
             <NavLink
               key={item.path}
@@ -165,53 +132,23 @@ const Sidebar = () => {
 
               </div>
 
-              {!collapsed && (
+              {
 
-                <span>
+                !collapsed && (
 
-                  {item.label}
+                  <span>{item.name}</span>
 
-                </span>
+                )
 
-              )}
+              }
 
             </NavLink>
 
-          ))}
+          ))
 
-        </div>
+        }
 
-      ))}
-
-      {!collapsed && (
-
-        <div className="chat-card">
-
-          <MessageCircle size={28} />
-
-          <h3>
-
-            AI Assistant
-
-          </h3>
-
-          <p>
-
-            Search, summarize and recall your saved knowledge instantly.
-
-          </p>
-
-          <button
-            onClick={() => navigate("/chat")}
-          >
-
-            Start Chat
-
-          </button>
-
-        </div>
-
-      )}
+      </div>
 
     </aside>
 

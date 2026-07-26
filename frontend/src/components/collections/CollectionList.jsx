@@ -1,7 +1,13 @@
 import "./CollectionList.css";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import {
+  FolderKanban,
+  Search,
+  Plus,
+} from "lucide-react";
 
 import CollectionGrid from "./CollectionGrid";
 import CreateCollectionModal from "./CreateCollectionModal";
@@ -18,7 +24,8 @@ const CollectionList = () => {
   const navigate = useNavigate();
 
   const [collections, setCollections] = useState([]);
-
+  const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -33,11 +40,19 @@ const CollectionList = () => {
 
       const data = await getCollections();
 
-      setCollections(data);
+      setCollections(Array.isArray(data) ? data : []);
 
-    } catch (err) {
+    }
+
+    catch (err) {
 
       console.log(err);
+
+    }
+
+    finally {
+
+      setLoading(false);
 
     }
 
@@ -51,27 +66,59 @@ const CollectionList = () => {
 
     setOpen(false);
 
-    loadCollections();
+    await loadCollections();
 
-  };
+    window.dispatchEvent(new Event("memoryUpdated"));
 
-  const handleRename = async(id,name)=>{
+};
 
-await renameCollection(id,name);
+  const handleRename = async (id,name)=>{
 
-loadCollections();
+    await renameCollection(id,name);
 
-}
+    await loadCollections();
 
-  const handleDelete = async (id) => {
+    window.dispatchEvent(new Event("memoryUpdated"));
 
-    if (!window.confirm("Delete this collection?")) return;
+};
+
+ const handleDelete = async(id)=>{
+
+    if(!window.confirm("Delete this collection?")) return;
 
     await deleteCollection(id);
 
-    loadCollections();
+    await loadCollections();
 
-  };
+    window.dispatchEvent(new Event("memoryUpdated"));
+
+};
+
+  const filtered = useMemo(() => {
+
+    return collections.filter((collection) =>
+
+      collection.name
+        ?.toLowerCase()
+        .includes(search.toLowerCase())
+
+    );
+
+  }, [collections, search]);
+
+  if (loading) {
+
+    return (
+
+      <h2 style={{ color: "white" }}>
+
+        Loading Collections...
+
+      </h2>
+
+    );
+
+  }
 
   return (
 
@@ -81,35 +128,111 @@ loadCollections();
 
         <div>
 
-          <h1>Collections</h1>
+          <h1>
 
-          <p>Organize your memories</p>
+            <FolderKanban size={30} />
+
+            Collections
+
+          </h1>
+
+          <p>
+
+            Organize your memories into collections.
+
+          </p>
 
         </div>
 
-        <button
-          className="new-btn"
-          onClick={() => setOpen(true)}
-        >
-          + New Collection
-        </button>
+        <div className="collection-actions">
+
+          <div className="collection-search">
+
+            <Search size={18} />
+
+            <input
+
+              placeholder="Search collections..."
+
+              value={search}
+
+              onChange={(e) => setSearch(e.target.value)}
+
+            />
+
+          </div>
+
+          <button
+
+            className="new-btn"
+
+            onClick={() => setOpen(true)}
+
+          >
+
+            <Plus size={18} />
+
+            New Collection
+
+          </button>
+
+        </div>
 
       </div>
 
-      <CollectionGrid
-        collections={collections}
-        onOpen={(id) => navigate(`/collections/${id}`)}
-        onDelete={handleDelete}
-      />
+      {
+
+        filtered.length === 0 ?
+
+          (
+
+            <div className="collection-empty">
+
+              <FolderKanban size={60} />
+
+              <h2>No Collections Found</h2>
+
+              <p>
+
+                Create your first collection to organize memories.
+
+              </p>
+
+            </div>
+
+          )
+
+          :
+
+          (
+
+            <CollectionGrid
+
+              collections={filtered}
+
+              onOpen={(id) => navigate(`/collections/${id}`)}
+
+              onDelete={handleDelete}
+
+              onRename={handleRename}
+
+            />
+
+          )
+
+      }
 
       <CreateCollectionModal
+
         open={open}
+
         onClose={() => setOpen(false)}
+
         onCreate={handleCreate}
+
       />
 
     </div>
-    
 
   );
 

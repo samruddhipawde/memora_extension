@@ -2,8 +2,110 @@
 
     display:grid;
 
-    grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
 
     gap:22px;
+
+}
+
+.collection-card{
+
+    background:#111827;
+
+    border-radius:22px;
+
+    border:1px solid rgba(255,255,255,.06);
+
+    overflow:hidden;
+
+    transition:.3s;
+
+}
+
+.collection-card:hover{
+
+    transform:translateY(-6px);
+
+    border-color:#8B5CF6;
+
+}
+
+.collection-body{
+
+    padding:24px;
+
+    cursor:pointer;
+
+}
+
+.collection-icon{
+
+    width:60px;
+
+    height:60px;
+
+    border-radius:16px;
+
+    background:linear-gradient(135deg,#8B5CF6,#2563EB);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:white;
+
+    margin-bottom:20px;
+
+}
+
+.collection-body h3{
+
+    color:white;
+
+    margin-bottom:10px;
+
+}
+
+.collection-body p{
+
+    color:#94A3B8;
+
+}
+
+.collection-actions{
+
+    display:flex;
+
+    border-top:1px solid rgba(255,255,255,.05);
+
+}
+
+.collection-actions button{
+
+    flex:1;
+
+    height:54px;
+
+    border:none;
+
+    background:none;
+
+    color:white;
+
+    cursor:pointer;
+
+}
+
+.collection-actions button:hover{
+
+    background:#1E293B;
+
+}
+
+.delete-btn{
+
+    color:#EF4444!important;
 
 }

@@ -9,8 +9,12 @@ const FavoritesPage = () => {
 
   const [favorites, setFavorites] = useState([]);
 
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
+
     loadFavorites();
+
   }, []);
 
   const loadFavorites = async () => {
@@ -25,9 +29,29 @@ const FavoritesPage = () => {
 
       console.log(err);
 
+    } finally {
+
+      setLoading(false);
+
     }
 
   };
+
+  const handleDelete = (id) => {
+
+    setFavorites((prev) =>
+
+      prev.filter((memory) => memory.id !== id)
+
+    );
+
+  };
+
+  if (loading) {
+
+    return <h2>Loading...</h2>;
+
+  }
 
   return (
 
@@ -55,13 +79,15 @@ const FavoritesPage = () => {
 
           (
 
-            favorites.map(memory => (
+            favorites.map((memory) => (
 
               <MemoryCard
 
                 key={memory.id}
 
                 memory={memory}
+
+                onDelete={handleDelete}
 
               />
 

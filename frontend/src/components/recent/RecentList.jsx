@@ -1,4 +1,5 @@
 import "./RecentList.css";
+
 import { useEffect, useState } from "react";
 
 import MemoryCard from "../memories/MemoryCard";
@@ -6,101 +7,113 @@ import { getRecentMemories } from "../../services/memoryService";
 
 const RecentList = () => {
 
-    const [memories,setMemories]=useState([]);
+  const [memories, setMemories] = useState([]);
 
-    const [loading,setLoading]=useState(true);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(()=>{
+  useEffect(() => {
 
-        loadRecent();
+    loadRecent();
 
-    },[]);
+  }, []);
 
-    const loadRecent=async()=>{
+  const loadRecent = async () => {
 
-        try{
+    try {
 
-            const data=await getRecentMemories();
+      const data = await getRecentMemories();
 
-            setMemories(data);
+      setMemories(data);
 
-        }
+    } catch (err) {
 
-        catch(err){
+      console.log(err);
 
-            console.log(err);
+    } finally {
 
-        }
-
-        finally{
-
-            setLoading(false);
-
-        }
-
-    };
-
-    if(loading){
-
-        return <h2>Loading...</h2>;
+      setLoading(false);
 
     }
 
-    return(
+  };
 
-        <div className="recent-page">
+  const handleDelete = (id) => {
 
-            <h1>🕒 Recent Memories</h1>
+    setMemories((prev) =>
 
-            <p>
-                Your latest saved webpages.
-            </p>
+      prev.filter((memory) => memory.id !== id)
 
-            <div className="recent-grid">
+    );
 
-                {
+  };
 
-                    memories.length===0 ?
+  if (loading) {
 
-                    (
+    return <h2>Loading...</h2>;
 
-                        <div className="empty">
+  }
 
-                            <h2>No Recent Memories</h2>
+  return (
 
-                            <p>
-                                Save webpages using your extension.
-                            </p>
+    <div className="recent-page">
 
-                        </div>
+      <h1>🕒 Recent Memories</h1>
 
-                    )
+      <p>
 
-                    :
+        Your latest saved webpages.
 
-                    (
+      </p>
 
-                        memories.map(memory=>(
+      <div className="recent-grid">
 
-                            <MemoryCard
+        {
 
-                                key={memory.id}
+          memories.length === 0 ?
 
-                                memory={memory}
+          (
 
-                            />
+            <div className="empty">
 
-                        ))
+              <h2>No Recent Memories</h2>
 
-                    )
+              <p>
 
-                }
+                Save webpages using your extension.
+
+              </p>
 
             </div>
 
-        </div>
+          )
 
-    );
+          :
+
+          (
+
+            memories.map((memory) => (
+
+              <MemoryCard
+
+                key={memory.id}
+
+                memory={memory}
+
+                onDelete={handleDelete}
+
+              />
+
+            ))
+
+          )
+
+        }
+
+      </div>
+
+    </div>
+
+  );
 
 };
 
