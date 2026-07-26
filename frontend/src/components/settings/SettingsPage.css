@@ -1,0 +1,113 @@
+.settings-page{
+
+    animation:fade .4s;
+
+}
+
+.settings-page h1{
+
+    color:white;
+
+    font-size:34px;
+
+}
+
+.settings-page p{
+
+    color:#94A3B8;
+
+    margin-bottom:35px;
+
+}
+
+.settings-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+}
+
+.setting-card{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:22px;
+
+    background:#111827;
+
+    border-radius:18px;
+
+    border:1px solid #27272A;
+
+    transition:.3s;
+
+    cursor:pointer;
+
+}
+
+.setting-card:hover{
+
+    transform:translateX(8px);
+
+    border-color:#8B5CF6;
+
+}
+
+.setting-card div{
+
+    display:flex;
+
+    gap:15px;
+
+    align-items:center;
+
+    color:white;
+
+}
+
+.setting-card input{
+
+    width:22px;
+
+    height:22px;
+
+}
+
+.danger{
+
+    border-color:#DC2626;
+
+}
+
+.logout{
+
+    border-color:#2563EB;
+
+}
+
+@keyframes fade{
+
+from{
+
+opacity:0;
+
+transform:translateY(20px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}

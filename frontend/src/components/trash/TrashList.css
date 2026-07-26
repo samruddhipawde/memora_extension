@@ -1,0 +1,43 @@
+.trash-page{
+
+padding:30px;
+
+}
+
+.trash-page h1{
+
+color:white;
+
+margin-bottom:30px;
+
+}
+
+.trash-item{
+
+margin-bottom:20px;
+
+background:#1b1d29;
+
+padding:15px;
+
+border-radius:16px;
+
+}
+
+.trash-item button{
+
+margin-top:15px;
+
+padding:10px 20px;
+
+border:none;
+
+border-radius:10px;
+
+background:#7c3aed;
+
+color:white;
+
+cursor:pointer;
+
+}

@@ -1,0 +1,65 @@
+.recent-page{
+
+    animation:fade .5s ease;
+
+}
+
+.recent-page h1{
+
+    color:white;
+
+    font-size:34px;
+
+}
+
+.recent-page p{
+
+    color:#94A3B8;
+
+    margin:10px 0 30px;
+
+}
+
+.recent-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fill,minmax(330px,1fr));
+
+    gap:25px;
+
+}
+
+.empty{
+
+    padding:60px;
+
+    background:#111827;
+
+    border-radius:20px;
+
+    text-align:center;
+
+    color:#94A3B8;
+
+}
+
+@keyframes fade{
+
+from{
+
+opacity:0;
+
+transform:translateY(20px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
