@@ -4,19 +4,27 @@ display:flex;
 
 flex-direction:column;
 
-gap:12px;
+gap:14px;
 
-margin-top:25px;
+flex:1;
+
+overflow-y:auto;
 
 }
 
 .history-item{
 
+display:flex;
+
+align-items:center;
+
+gap:14px;
+
 padding:14px;
 
-background:#1e293b;
+border-radius:14px;
 
-border-radius:12px;
+background:#1E293B;
 
 cursor:pointer;
 
@@ -26,34 +34,94 @@ transition:.25s;
 
 .history-item:hover{
 
-background:#7c3aed;
+background:#2B384F;
+
+transform:translateX(5px);
 
 }
 
-.history-item h4{
+.history-icon{
+
+width:42px;
+
+height:42px;
+
+border-radius:12px;
+
+background:#8B5CF620;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+color:#A78BFA;
+
+}
+
+.history-content{
+
+flex:1;
+
+}
+
+.history-content h4{
 
 color:white;
 
 font-size:14px;
 
-margin-bottom:6px;
+margin:0;
+
+font-weight:600;
 
 }
 
-.history-item span{
+.history-content span{
 
-color:#94a3b8;
+display:block;
+
+margin-top:5px;
 
 font-size:12px;
+
+color:#94A3B8;
 
 }
 
 .empty-history{
 
-color:#64748b;
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+
+align-items:center;
 
 text-align:center;
 
-margin-top:30px;
+padding:50px 15px;
+
+color:#94A3B8;
+
+gap:12px;
+
+}
+
+.empty-history svg{
+
+color:#8B5CF6;
+
+}
+
+.empty-history h3{
+
+color:white;
+
+margin:0;
+
+font-size:18px;
 
 }

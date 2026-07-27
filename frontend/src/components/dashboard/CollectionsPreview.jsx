@@ -11,21 +11,31 @@ const CollectionsPreview = () => {
 
   const navigate = useNavigate();
 
-  const [collections, setCollections] = useState([]);
+  const [collections,setCollections]=useState([]);
 
-  useEffect(() => {
+  useEffect(()=>{
 
     loadCollections();
 
-  }, []);
+    const reload=()=>loadCollections();
 
-  const loadCollections = async () => {
+    window.addEventListener("memoryUpdated",reload);
 
-    try {
+    return ()=>{
 
-      const data = await getCollections();
+      window.removeEventListener("memoryUpdated",reload);
 
-      setCollections(data);
+    };
+
+  },[]);
+
+  const loadCollections=async()=>{
+
+    try{
+
+      const data=await getCollections();
+
+      setCollections(Array.isArray(data)?data:[]);
 
     }
 
@@ -55,7 +65,7 @@ Collections
 
 <p>
 
-Organize your saved memories
+Organize your memories
 
 </p>
 
@@ -79,7 +89,7 @@ View All
 
 {
 
-collections.length===0 ?
+collections.length===0?
 
 <p className="empty">
 
@@ -89,7 +99,7 @@ No Collections Yet
 
 :
 
-collections.slice(0,4).map((item)=>(
+collections.slice(0,4).map(item=>(
 
 <div
 
@@ -109,7 +119,7 @@ onClick={()=>navigate(`/collections/${item.id}`)}
 
 <span>
 
-{item.memory_count || 0} Memories
+{item.memory_count||0} Memories
 
 </span>
 

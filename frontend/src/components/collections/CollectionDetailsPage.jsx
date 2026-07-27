@@ -43,7 +43,7 @@ const CollectionDetailsPage = () => {
 
     } catch (err) {
 
-      console.error("Failed to load collection:", err);
+      console.error(err);
 
       setMemories([]);
 
@@ -52,6 +52,14 @@ const CollectionDetailsPage = () => {
       setLoading(false);
 
     }
+
+  };
+
+  const handleDelete = (memoryId) => {
+
+    setMemories((prev) =>
+      prev.filter((memory) => memory.id !== memoryId)
+    );
 
   };
 
@@ -72,15 +80,10 @@ const CollectionDetailsPage = () => {
   return (
 
     <motion.div
-
       className="collection-details-page"
-
       initial={{ opacity: 0 }}
-
       animate={{ opacity: 1 }}
-
       transition={{ duration: .4 }}
-
     >
 
       <div className="collection-header">
@@ -93,16 +96,10 @@ const CollectionDetailsPage = () => {
 
         <div>
 
-          <h1>
-
-            Collection Memories
-
-          </h1>
+          <h1>Collection Memories</h1>
 
           <p>
-
             View every memory stored inside this collection.
-
           </p>
 
         </div>
@@ -120,15 +117,11 @@ const CollectionDetailsPage = () => {
             <FolderKanban size={70} />
 
             <h2>
-
               This collection is empty
-
             </h2>
 
             <p>
-
               Start adding memories to organize your knowledge.
-
             </p>
 
           </div>
@@ -146,11 +139,9 @@ const CollectionDetailsPage = () => {
               memories.map((memory) => (
 
                 <MemoryCard
-
                   key={memory.id}
-
                   memory={memory}
-
+                  onDelete={handleDelete}
                 />
 
               ))

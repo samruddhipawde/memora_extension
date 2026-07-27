@@ -1,64 +1,97 @@
 import "./CreateCollectionModal.css";
 
 import { useState } from "react";
+import { FolderPlus } from "lucide-react";
 
 const CreateCollectionModal = ({
-    open,
-    onClose,
-    onCreate
+  open,
+  onClose,
+  onCreate,
 }) => {
 
-    const [name,setName]=useState("");
+  const [name, setName] = useState("");
 
-    if(!open) return null;
+  if (!open) return null;
 
-    return(
+  const handleCreate = () => {
 
-        <div className="modal-overlay">
+    if (!name.trim()) return;
 
-            <div className="modal-box">
+    onCreate(name);
 
-                <h2>Create Collection</h2>
+    setName("");
 
-                <input
+  };
 
-                    placeholder="Collection name"
+  return (
 
-                    value={name}
+    <div className="modal-overlay">
 
-                    onChange={(e)=>setName(e.target.value)}
+      <div className="collection-modal">
 
-                />
+        <div className="modal-header">
 
-                <div className="modal-actions">
+          <div className="modal-icon">
 
-                    <button
-                        className="cancel-btn"
-                        onClick={onClose}
-                    >
-                        Cancel
-                    </button>
+            <FolderPlus size={28} />
 
-                    <button
-                        className="create-btn"
-                        onClick={()=>{
+          </div>
 
-                            onCreate(name);
+          <div>
 
-                            setName("");
+            <h2>Create Collection</h2>
 
-                        }}
-                    >
-                        Create
-                    </button>
+            <p>
+              Organize your memories into collections.
+            </p>
 
-                </div>
-
-            </div>
+          </div>
 
         </div>
 
-    );
+        <input
+          type="text"
+          placeholder="Collection Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          onKeyDown={(e) => {
+
+            if (e.key === "Enter") {
+
+              handleCreate();
+
+            }
+
+          }}
+        />
+
+        <div className="modal-actions">
+
+          <button
+            className="cancel-btn"
+            onClick={onClose}
+          >
+
+            Cancel
+
+          </button>
+
+          <button
+            className="create-btn"
+            onClick={handleCreate}
+          >
+
+            Create Collection
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  );
 
 };
 

@@ -2,6 +2,7 @@ import "./MemoryCard.css";
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import toast from "react-hot-toast";
 
 import {
   Heart,
@@ -21,7 +22,7 @@ import {
   deleteMemory,
 } from "../../services/memoryService";
 
-const MemoryCard = ({ memory }) => {
+const MemoryCard = ({ memory, onDelete }) => {
 
   const [favorite, setFavorite] = useState(
     memory.is_favorite || false
@@ -37,11 +38,19 @@ const MemoryCard = ({ memory }) => {
 
       await favoriteMemory(memory.id);
 
-      setFavorite(!favorite);
+      setFavorite((prev) => !prev);
+
+      toast.success(
+        favorite
+          ? "Removed from favorites"
+          : "Added to favorites"
+      );
 
     } catch (err) {
 
-      console.log(err);
+      console.error(err);
+
+      toast.error("Failed to update favorite");
 
     }
 
@@ -51,7 +60,9 @@ const MemoryCard = ({ memory }) => {
 
     e.stopPropagation();
 
-    const ok = window.confirm("Delete this memory?");
+    const ok = window.confirm(
+      "Delete this memory?"
+    );
 
     if (!ok) return;
 
@@ -59,11 +70,19 @@ const MemoryCard = ({ memory }) => {
 
       await deleteMemory(memory.id);
 
-      window.location.reload();
+      toast.success("Memory deleted");
+
+      if (onDelete) {
+
+        onDelete(memory.id);
+
+      }
 
     } catch (err) {
 
-      console.log(err);
+      console.error(err);
+
+      toast.error("Delete failed");
 
     }
 
@@ -73,13 +92,27 @@ const MemoryCard = ({ memory }) => {
 
     e.stopPropagation();
 
-    await navigator.clipboard.writeText(
+    try {
 
-      memory.url || memory.content || ""
+      await navigator.clipboard.writeText(
 
-    );
+        memory.url ||
 
-    alert("Copied Successfully");
+        memory.raw_content ||
+
+        memory.ai_summary ||
+
+        ""
+
+      );
+
+      toast.success("Copied successfully");
+
+    } catch {
+
+      toast.error("Copy failed");
+
+    }
 
   };
 
@@ -87,23 +120,35 @@ const MemoryCard = ({ memory }) => {
 
     e.stopPropagation();
 
-    if (navigator.share) {
+    try {
 
-      navigator.share({
+      if (navigator.share) {
 
-        title: memory.title,
+        await navigator.share({
 
-        text: memory.ai_summary,
+          title: memory.title,
 
-        url: memory.url,
+          text: memory.ai_summary,
 
-      });
+          url: memory.url,
 
-    } else {
+        });
 
-      await navigator.clipboard.writeText(memory.url);
+      } else {
 
-      alert("Link Copied");
+        await navigator.clipboard.writeText(
+
+          memory.url || ""
+
+        );
+
+        toast.success("Link copied");
+
+      }
+
+    } catch (err) {
+
+      console.log(err);
 
     }
 
@@ -118,8 +163,11 @@ const MemoryCard = ({ memory }) => {
         className="memory-card"
 
         whileHover={{
+
           y: -8,
+
           scale: 1.02,
+
         }}
 
       >
@@ -133,14 +181,16 @@ const MemoryCard = ({ memory }) => {
               className="memory-favicon"
 
               src={
+
                 memory.favicon ||
 
                 "https://www.google.com/s2/favicons?domain=" +
 
                 memory.domain
+
               }
 
-              alt=""
+              alt="favicon"
 
             />
 
@@ -190,7 +240,7 @@ const MemoryCard = ({ memory }) => {
 
             memory.ai_summary ||
 
-            "No AI Summary Available."
+            "No AI summary available."
 
           }
 
@@ -240,11 +290,15 @@ const MemoryCard = ({ memory }) => {
 
                 className="visit-btn"
 
-                onClick={(e)=>e.stopPropagation()}
+                onClick={(e) =>
+
+                  e.stopPropagation()
+
+                }
 
               >
 
-                <ExternalLink size={18}/>
+                <ExternalLink size={18} />
 
               </a>
 
@@ -264,7 +318,7 @@ const MemoryCard = ({ memory }) => {
 
           >
 
-            <Eye size={18}/>
+            <Eye size={18} />
 
           </button>
 
@@ -276,7 +330,7 @@ const MemoryCard = ({ memory }) => {
 
           >
 
-            <Copy size={18}/>
+            <Copy size={18} />
 
           </button>
 
@@ -288,7 +342,7 @@ const MemoryCard = ({ memory }) => {
 
           >
 
-            <Share2 size={18}/>
+            <Share2 size={18} />
 
           </button>
 
@@ -300,7 +354,7 @@ const MemoryCard = ({ memory }) => {
 
           >
 
-            <Trash2 size={18}/>
+            <Trash2 size={18} />
 
           </button>
 

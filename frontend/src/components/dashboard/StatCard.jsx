@@ -1,53 +1,34 @@
 import "./StatCard.css";
-import { motion } from "framer-motion";
 
 const StatCard = ({ title, value, icon, color }) => {
 
   return (
 
-    <motion.div
+    <div className="stat-card">
 
-      className="stat-card"
+      <div className="stat-top">
 
-      whileHover={{
-        y: -6,
-        scale: 1.02,
-      }}
-
-      transition={{
-        duration: .25,
-      }}
-
-    >
-
-      <div
-        className="stat-icon"
-        style={{
-          background: color,
-        }}
-      >
-
-        {icon}
-
-      </div>
-
-      <div className="stat-content">
-
-        <h2>
-
-          {value}
-
-        </h2>
-
-        <p>
+        <span className="stat-title">
 
           {title}
 
-        </p>
+        </span>
+
+        <div style={{ color }}>
+
+          {icon}
+
+        </div>
 
       </div>
 
-    </motion.div>
+      <h2 className="stat-value">
+
+        {value}
+
+      </h2>
+
+    </div>
 
   );
 

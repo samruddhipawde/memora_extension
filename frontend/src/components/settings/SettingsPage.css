@@ -1,94 +1,142 @@
 .settings-page{
 
-    animation:fade .4s;
+max-width:900px;
+
+animation:fade .45s;
 
 }
 
 .settings-page h1{
 
-    color:white;
+color:white;
 
-    font-size:34px;
+font-size:36px;
+
+font-weight:700;
+
+margin-bottom:8px;
 
 }
 
 .settings-page p{
 
-    color:#94A3B8;
+color:#94A3B8;
 
-    margin-bottom:35px;
+font-size:15px;
+
+margin-bottom:35px;
 
 }
 
 .settings-list{
 
-    display:flex;
+display:flex;
 
-    flex-direction:column;
+flex-direction:column;
 
-    gap:18px;
+gap:18px;
 
 }
 
 .setting-card{
 
-    display:flex;
+display:flex;
 
-    justify-content:space-between;
+justify-content:space-between;
 
-    align-items:center;
+align-items:center;
 
-    padding:22px;
+padding:22px 24px;
 
-    background:#111827;
+background:rgba(17,24,39,.88);
 
-    border-radius:18px;
+backdrop-filter:blur(18px);
 
-    border:1px solid #27272A;
+border:1px solid rgba(255,255,255,.08);
 
-    transition:.3s;
+border-radius:18px;
 
-    cursor:pointer;
+transition:.3s;
+
+cursor:pointer;
 
 }
 
 .setting-card:hover{
 
-    transform:translateX(8px);
+transform:translateX(8px);
 
-    border-color:#8B5CF6;
+border-color:#8B5CF6;
+
+box-shadow:0 12px 30px rgba(139,92,246,.18);
 
 }
 
-.setting-card div{
+.setting-card>div{
 
-    display:flex;
+display:flex;
 
-    gap:15px;
+align-items:center;
 
-    align-items:center;
+gap:16px;
 
-    color:white;
+color:white;
+
+font-size:15px;
+
+font-weight:500;
+
+}
+
+.setting-card svg{
+
+color:#A78BFA;
 
 }
 
 .setting-card input{
 
-    width:22px;
+width:22px;
 
-    height:22px;
+height:22px;
+
+accent-color:#8B5CF6;
+
+cursor:pointer;
+
+}
+
+.setting-card input:hover{
+
+transform:scale(1.05);
 
 }
 
 .danger{
 
-    border-color:#DC2626;
+border-color:rgba(239,68,68,.35);
+
+}
+
+.danger:hover{
+
+border-color:#EF4444;
+
+box-shadow:0 12px 30px rgba(239,68,68,.18);
 
 }
 
 .logout{
 
-    border-color:#2563EB;
+border-color:rgba(37,99,235,.35);
+
+}
+
+.logout:hover{
+
+border-color:#2563EB;
+
+box-shadow:0 12px 30px rgba(37,99,235,.18);
 
 }
 
@@ -107,6 +155,22 @@ to{
 opacity:1;
 
 transform:translateY(0);
+
+}
+
+}
+
+@media(max-width:768px){
+
+.setting-card{
+
+padding:18px;
+
+}
+
+.settings-page h1{
+
+font-size:30px;
 
 }
 

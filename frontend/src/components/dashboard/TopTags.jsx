@@ -1,123 +1,90 @@
+import {useEffect,useState} from "react";
+
+import {
+getTopTags
+}
+from "../../services/memoryService";
+
 import "./TopTags.css";
 
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { Hash } from "lucide-react";
 
-import { getTopTags } from "../../services/memoryService";
 
-const TopTags = () => {
+const TopTags=()=>{
 
-  const [tags, setTags] = useState([]);
 
-  useEffect(() => {
-    loadTags();
-  }, []);
+const [tags,setTags]=useState([]);
 
-  const loadTags = async () => {
 
-    try {
 
-      const data = await getTopTags();
 
-      setTags(Array.isArray(data) ? data : []);
+useEffect(()=>{
 
-    } catch (err) {
 
-      console.log(err);
+getTopTags()
 
-    }
+.then(data=>{
 
-  };
+setTags(data);
 
-  return (
+});
 
-    <motion.div
 
-      className="top-tags"
+},[]);
 
-      whileHover={{ y:-5 }}
 
-    >
 
-      <div className="top-card-header">
 
-        <div className="tag-icon">
+return(
 
-          <Hash size={20}/>
+<div className="top-tags">
 
-        </div>
 
-        <div>
+<h2>
+Top Tags
+</h2>
 
-          <h3>
 
-            Top Tags
 
-          </h3>
+<div className="tags-container">
 
-          <span>
 
-            Frequently used tags
+{
+tags.map((item)=>(
 
-          </span>
 
-        </div>
+<div 
+className="tag-card"
+key={item.tag}
+>
 
-      </div>
 
-      {
+<span>
+#{item.tag}
+</span>
 
-        tags.length===0 ?
 
-        <div className="empty">
+<b>
+{item.count}
+</b>
 
-          No tags available
 
-        </div>
+</div>
 
-        :
 
-        <div className="tag-list">
+))
 
-          {
+}
 
-            tags.map((tag,index)=>(
 
-              <div
+</div>
 
-                className="tag-chip"
 
-                key={index}
+</div>
 
-              >
+);
 
-                <span>
-
-                  #{tag.tag}
-
-                </span>
-
-                <strong>
-
-                  {tag.count}
-
-                </strong>
-
-              </div>
-
-            ))
-
-          }
-
-        </div>
-
-      }
-
-    </motion.div>
-
-  );
 
 };
+
 
 export default TopTags;

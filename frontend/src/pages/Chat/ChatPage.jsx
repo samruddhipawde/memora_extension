@@ -21,42 +21,59 @@ const ChatPage = () => {
 
   const handleSend = async (question) => {
 
-    const userMessage = {
-      sender: "user",
-      text: question,
-    };
+    if (!question.trim()) return;
 
-    setMessages((prev) => [...prev, userMessage]);
+    setMessages((prev) => [
+      ...prev,
+      {
+        sender: "user",
+        text: question,
+      },
+    ]);
 
     setLoading(true);
 
     try {
 
-      const response = await askAI(question);
+      const data = await askAI(question);
+
+      const reply =
+        data?.answer ||
+        data?.response ||
+        data?.message ||
+        data?.reply ||
+        data?.result ||
+        "No response received.";
 
       setMessages((prev) => [
         ...prev,
         {
           sender: "assistant",
-          text: response.answer,
+          text: reply,
         },
       ]);
 
-    } catch (err) {
+    } catch (error) {
 
-      console.log(err);
+      console.error(error);
 
       setMessages((prev) => [
         ...prev,
         {
           sender: "assistant",
-          text: "Sorry, something went wrong.",
+          text:
+            error?.response?.status === 500
+              ? "⚠️ AI Server Error."
+              : "⚠️ Unable to contact AI.",
         },
       ]);
+
+    } finally {
+
+      setLoading(false);
 
     }
 
-    setLoading(false);
   };
 
   return (

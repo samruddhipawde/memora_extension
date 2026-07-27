@@ -1,82 +1,64 @@
 import "./HeroBanner.css";
 
-import { motion } from "framer-motion";
-import { Sparkles } from "lucide-react";
-
 import logo from "../../../assets/logo/memora-logo.png";
 
-import { useAuth } from "../../../context/AuthContext";
-const HeroBanner = () => {
+const HeroBanner=()=>{
 
-  const { user } = useAuth();
+const hour=new Date().getHours();
 
-  const hour = new Date().getHours();
+let greeting="Hello";
 
-  let greeting = "Hello";
+if(hour<12){
 
-  if (hour < 12) greeting = "Good Morning";
-  else if (hour < 17) greeting = "Good Afternoon";
-  else greeting = "Good Evening";
+greeting="Good Morning";
 
-  return (
+}
 
-    <motion.div
+else if(hour<18){
 
-      className="hero-banner"
+greeting="Good Afternoon";
 
-      initial={{ opacity: 0, y: 20 }}
+}
 
-      animate={{ opacity: 1, y: 0 }}
+else{
 
-      transition={{ duration: .5 }}
+greeting="Good Evening";
 
-    >
+}
 
-      <div className="hero-left">
+return(
 
-        <img
-          src={logo}
-          alt="Memora"
-          className="hero-logo"
-        />
+<div className="hero-banner">
 
-        <div>
+<div>
 
-          <span className="hero-badge">
+<h1>
 
-            <Sparkles size={15}/>
+{greeting} 👋
 
-            Memora AI
+</h1>
 
-          </span>
+<p>
 
-          <h1>
+Welcome back to Memora.
 
-            {greeting},
+Organize memories, search instantly, and let AI remember everything for you.
 
-            <span>
+</p>
 
-              {user?.full_name || "User"}
+</div>
 
-            </span>
+<img
 
-            👋
+src={logo}
 
-          </h1>
+alt="Memora"
 
-          <p>
+/>
 
-            Here's what's happening with your memories today.
+</div>
 
-          </p>
-
-        </div>
-
-      </div>
-
-    </motion.div>
-
-  );
+);
 
 };
 

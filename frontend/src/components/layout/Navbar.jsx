@@ -2,8 +2,8 @@ import "./Navbar.css";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import {
-  Menu,
   Search,
   Bell,
   Moon,
@@ -11,107 +11,131 @@ import {
 } from "lucide-react";
 
 import { useAuth } from "../../context/AuthContext";
-
 import SaveMemoryModal from "../dashboard/SaveMemoryModal";
 
 const Navbar = () => {
 
+  const navigate = useNavigate();
+
   const { user } = useAuth();
-const navigate = useNavigate();
 
-const [search,setSearch]=useState("");
-  const [openSave, setOpenSave] = useState(false);
+  const [search,setSearch]=useState("");
 
-  return (
+  const [openSave,setOpenSave]=useState(false);
 
-    <>
+  return(
 
-      <header className="navbar">
+<>
 
-        <div className="navbar-left">
+<header className="navbar">
 
-          <button className="nav-icon">
-            <Menu size={20}/>
-          </button>
+<div className="navbar-left">
 
-          <div className="search-box">
+<div className="search-box">
 
-            <Search size={18}/>
+<Search size={18}/>
 
-            <input
-  type="text"
-  placeholder="Search memories..."
-  value={search}
-  onChange={(e)=>setSearch(e.target.value)}
-  onKeyDown={(e)=>{
+<input
 
-    if(e.key==="Enter"){
+placeholder="Search memories..."
 
-      navigate(`/search?q=${search}`);
+value={search}
 
-    }
+onChange={(e)=>setSearch(e.target.value)}
 
-  }}
+onKeyDown={(e)=>{
+
+if(e.key==="Enter"){
+
+navigate(`/search?q=${search}`);
+
+}
+
+}}
+
 />
 
-          </div>
+</div>
 
-        </div>
+</div>
 
-        <div className="navbar-right">
+<div className="navbar-right">
 
-          <button
-            className="save-btn"
-            onClick={() => setOpenSave(true)}
-          >
+<button
 
-            <Plus size={18}/>
+className="save-btn"
 
-            Save Memory
+onClick={()=>setOpenSave(true)}
 
-          </button>
+>
 
-          <button className="nav-icon">
-            <Bell size={20}/>
-          </button>
+<Plus size={18}/>
 
-          <button className="nav-icon">
-            <Moon size={20}/>
-          </button>
+Save Memory
 
-          <div className="profile-box">
+</button>
 
-            <div className="avatar">
-              {user?.full_name?.charAt(0) || "S"}
-            </div>
+<button className="nav-icon">
 
-            <div>
+<Bell size={20}/>
 
-              <h4>
-                {user?.full_name || "Samruddhi"}
-              </h4>
+</button>
 
-              <span>
-                {user?.email}
-              </span>
+<button className="nav-icon">
 
-            </div>
+<Moon size={20}/>
 
-          </div>
+</button>
 
-        </div>
+<div className="profile-box">
 
-      </header>
+<div className="avatar">
 
-      <SaveMemoryModal
-        open={openSave}
-        onClose={() => setOpenSave(false)}
-        onSaved={() => window.location.reload()}
-      />
+{user?.full_name?.charAt(0) || "S"}
 
-    </>
+</div>
 
-  );
+<div>
+
+<h4>
+
+{user?.full_name || "Samruddhi"}
+
+</h4>
+
+<span>
+
+{user?.email}
+
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+</header>
+
+<SaveMemoryModal
+
+open={openSave}
+
+onClose={()=>setOpenSave(false)}
+
+onSaved={()=>{
+
+setOpenSave(false);
+
+window.dispatchEvent(new Event("memoryUpdated"));
+
+}}
+
+/>
+
+</>
+
+);
 
 };
 
