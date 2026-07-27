@@ -22,16 +22,18 @@ const DashboardBody = () => {
 
     <motion.div
       className="dashboard-body"
-      initial={{ opacity:0,y:20 }}
-      animate={{ opacity:1,y:0 }}
-      transition={{ duration:.4 }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: .4 }}
     >
 
       <HeroBanner user={user} />
 
-      <QuickActions />
-
+      {/* Stats FIRST */}
       <StatsSection />
+
+      {/* Quick Actions SECOND */}
+      <QuickActions />
 
       <div className="dashboard-grid">
 

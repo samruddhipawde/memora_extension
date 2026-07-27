@@ -78,7 +78,7 @@ const MostVisited = () => {
 
         :
 
-        pages.map(page=>(
+        pages.slice(0,5).map(page=>(
 
           <div
 

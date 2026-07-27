@@ -1,88 +1,66 @@
 import "./ChatSidebar.css";
 
 import {
-
-MessageSquarePlus,
-
-Trash2
-
+  MessageSquarePlus,
+  Trash2
 } from "lucide-react";
-
-import ChatHistory from "./ChatHistory";
-
-const demoChats = [
-
-{
-
-id:1,
-
-title:"React Hooks",
-
-date:"Today"
-
-},
-
-{
-
-id:2,
-
-title:"FastAPI Notes",
-
-date:"Yesterday"
-
-},
-
-{
-
-id:3,
-
-title:"Machine Learning",
-
-date:"2 days ago"
-
-}
-
-];
 
 const ChatSidebar = () => {
 
-return(
+  return (
 
-<div className="chat-sidebar">
+    <div className="chat-sidebar">
 
-<h2>
+      <h2>Memora AI</h2>
 
-Memora AI
+      <button>
 
-</h2>
+        <MessageSquarePlus size={18}/>
 
-<button>
+        New Chat
 
-<MessageSquarePlus size={18}/>
+      </button>
 
-New Chat
+      <div
+        style={{
+          flex:1,
+          display:"flex",
+          alignItems:"center",
+          justifyContent:"center",
+          color:"#94A3B8",
+          textAlign:"center",
+          padding:"30px"
+        }}
+      >
 
-</button>
+        <div>
 
-<ChatHistory
+          <p
+            style={{
+              fontSize:"15px",
+              lineHeight:"1.8"
+            }}
+          >
 
-chats={demoChats}
+            Your conversations will appear here.
 
-onSelect={(chat)=>console.log(chat)}
+          </p>
 
-/>
+        </div>
 
-<button className="clear-btn">
+      </div>
 
-<Trash2 size={18}/>
+      <button className="clear-btn">
 
-Clear History
+        <Trash2 size={18}/>
 
-</button>
+        Clear History
 
-</div>
+      </button>
 
-);
+    </div>
+
+  );
 
 };
 

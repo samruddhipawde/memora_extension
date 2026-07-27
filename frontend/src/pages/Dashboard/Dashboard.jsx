@@ -1,12 +1,18 @@
 import MainLayout from "../../components/layout/MainLayout";
-import DashboardBody from "../../components/dashboard/DashboardBody";
+import DashboardHome from "../../components/dashboard/DashboardHome";
 
 const Dashboard = () => {
+
   return (
+
     <MainLayout>
-      <DashboardBody />
+
+      <DashboardHome />
+
     </MainLayout>
+
   );
+
 };
 
 export default Dashboard;

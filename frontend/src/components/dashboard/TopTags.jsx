@@ -1,90 +1,123 @@
-import {useEffect,useState} from "react";
-
-import {
-getTopTags
-}
-from "../../services/memoryService";
-
 import "./TopTags.css";
 
+import { useEffect, useState } from "react";
 
+import { Hash } from "lucide-react";
 
-const TopTags=()=>{
+import { getTopTags } from "../../services/memoryService";
 
+const TopTags = () => {
 
-const [tags,setTags]=useState([]);
+  const [tags,setTags]=useState([]);
 
+  useEffect(()=>{
 
+    loadTags();
 
+  },[]);
 
-useEffect(()=>{
+  const loadTags = async()=>{
 
+    try{
 
-getTopTags()
+      const data = await getTopTags();
 
-.then(data=>{
+      setTags(Array.isArray(data) ? data : []);
 
-setTags(data);
+    }
 
-});
+    catch(err){
 
+      console.log(err);
 
-},[]);
+      setTags([]);
 
+    }
 
+  };
 
+  return(
 
-return(
+    <div className="top-tags">
 
-<div className="top-tags">
+      <div className="top-card-header">
 
+        <div className="top-icon">
 
-<h2>
-Top Tags
-</h2>
+          <Hash size={20}/>
 
+        </div>
 
+        <div>
 
-<div className="tags-container">
+          <h3>
 
+            Top Tags
 
-{
-tags.map((item)=>(
+          </h3>
 
+          <span>
 
-<div 
-className="tag-card"
-key={item.tag}
->
+            Frequently Used
 
+          </span>
 
-<span>
-#{item.tag}
-</span>
+        </div>
 
+      </div>
 
-<b>
-{item.count}
-</b>
+      <div className="tags-container">
 
+        {
 
-</div>
+          tags.length===0 ?
 
+          <div className="empty">
 
-))
+            No tags available.
 
-}
+          </div>
 
+          :
 
-</div>
+          tags
 
+          .slice(0,8)
 
-</div>
+          .map((item,index)=>(
 
-);
+            <div
 
+              className="tag-card"
+
+              key={item.tag || index}
+
+            >
+
+              <span>
+
+                #{item.tag}
+
+              </span>
+
+              <b>
+
+                {item.count}
+
+              </b>
+
+            </div>
+
+          ))
+
+        }
+
+      </div>
+
+    </div>
+
+  );
 
 };
-
 
 export default TopTags;

@@ -74,7 +74,7 @@ const RecentMemories = () => {
 
           {
 
-            memories.map(memory=>(
+            memories.slice(0,5).map(memory=>(
 
               <div
 

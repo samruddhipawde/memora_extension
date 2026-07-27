@@ -1,83 +1,123 @@
 .top-domains{
 
-    background:#111827;
+background:#111827;
 
-    border-radius:22px;
+border-radius:20px;
 
-    padding:24px;
+padding:18px;
 
-    border:1px solid rgba(255,255,255,.06);
+border:1px solid rgba(255,255,255,.06);
 
 }
 
 .top-card-header{
 
-    display:flex;
+display:flex;
 
-    align-items:center;
+align-items:center;
 
-    gap:14px;
+gap:12px;
 
-    margin-bottom:20px;
+margin-bottom:16px;
 
 }
 
 .top-icon{
 
-    width:44px;
+width:42px;
 
-    height:44px;
+height:42px;
 
-    border-radius:12px;
+border-radius:12px;
 
-    background:#8B5CF620;
+display:flex;
 
-    display:flex;
+align-items:center;
 
-    align-items:center;
+justify-content:center;
 
-    justify-content:center;
+background:#8B5CF620;
 
-    color:#8B5CF6;
+color:#8B5CF6;
+
+}
+
+.top-card-header h3{
+
+margin:0;
+
+font-size:18px;
+
+color:white;
+
+}
+
+.top-card-header span{
+
+font-size:12px;
+
+color:#94A3B8;
 
 }
 
 .domain-list{
 
-    display:flex;
+display:flex;
 
-    flex-direction:column;
+flex-direction:column;
 
-    gap:12px;
+gap:10px;
 
 }
 
 .domain-item{
 
-    display:flex;
+display:flex;
 
-    justify-content:space-between;
+justify-content:space-between;
 
-    align-items:center;
+align-items:center;
 
-    padding:14px;
+padding:12px;
 
-    background:#0F172A;
+border-radius:12px;
 
-    border-radius:14px;
+background:#0F172A;
 
 }
 
 .domain-item h4{
 
-    color:white;
+margin:0;
+
+font-size:14px;
+
+color:white;
+
+white-space:nowrap;
+
+overflow:hidden;
+
+text-overflow:ellipsis;
 
 }
 
 .domain-item span{
 
-    color:#8B5CF6;
+font-size:13px;
 
-    font-weight:700;
+font-weight:700;
+
+color:#8B5CF6;
+
+}
+
+.empty{
+
+padding:22px;
+
+text-align:center;
+
+color:#94A3B8;
 
 }
