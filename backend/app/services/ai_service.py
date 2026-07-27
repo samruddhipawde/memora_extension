@@ -53,28 +53,44 @@ def generate_tags(content: str):
 
     return response.choices[0].message.content.strip()
 
-
 def store_embedding(
     memory_id: int,
     user_id: int,
     title: str,
+    summary: str,
+    tags: str,
     content: str
 ):
 
-    embedding = generate_embedding(content)
+    searchable_document = f"""
+Title:
+{title}
+
+Summary:
+{summary}
+
+Tags:
+{tags}
+
+Content:
+{content[:5000]}
+"""
+
+    embedding = generate_embedding(searchable_document)
 
     collection.add(
         ids=[str(memory_id)],
         embeddings=[embedding],
-        documents=[content],
+        documents=[searchable_document],
         metadatas=[
             {
                 "title": title,
+                "summary": summary,
+                "tags": tags,
                 "user_id": user_id
             }
         ]
     )
-
 
 def semantic_search(
     query: str,

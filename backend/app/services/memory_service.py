@@ -81,6 +81,8 @@ def save_memory(
     memory.id,
     user_id,
     memory.title,
+    summary,
+    tags,
     raw_content
 )
 
