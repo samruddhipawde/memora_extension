@@ -7,7 +7,7 @@ import {
   LayoutDashboard,
   FolderKanban,
   BrainCircuit,
-  MessageSquare,
+  Clock3,
   User,
   Settings,
   ChevronLeft,
@@ -24,7 +24,7 @@ const Sidebar = () => {
     {
       name: "Dashboard",
       icon: <LayoutDashboard size={20} />,
-      path: "/dashboard",
+      path: "/",
     },
 
     {
@@ -40,9 +40,9 @@ const Sidebar = () => {
     },
 
     {
-      name: "History",
-      icon: <MessageSquare size={20} />,
-      path: "/history",
+      name: "Recent",
+      icon: <Clock3 size={20} />,
+      path: "/recent",
     },
 
     {
@@ -73,21 +73,17 @@ const Sidebar = () => {
             className="sidebar-logo"
           />
 
-          {
+          {!collapsed && (
 
-            !collapsed && (
+            <div className="logo-text">
 
-              <div>
+              <h2>Memora</h2>
 
-                <h2>Memora</h2>
+              <p>Your AI Memory</p>
 
-                <p>Your AI Memory</p>
+            </div>
 
-              </div>
-
-            )
-
-          }
+          )}
 
         </div>
 
@@ -112,41 +108,34 @@ const Sidebar = () => {
 
       <div className="menu-group">
 
-        {
+        {menu.map((item) => (
 
-          menu.map((item) => (
+          <NavLink
+            key={item.path}
+            to={item.path}
+            end={item.path === "/"}
+            className={({ isActive }) =>
+              isActive
+                ? "menu-item active"
+                : "menu-item"
+            }
+          >
 
-            <NavLink
-              key={item.path}
-              to={item.path}
-              className={({ isActive }) =>
-                isActive
-                  ? "menu-item active"
-                  : "menu-item"
-              }
-            >
+            <div className="menu-icon">
 
-              <div className="menu-icon">
+              {item.icon}
 
-                {item.icon}
+            </div>
 
-              </div>
+            {!collapsed && (
 
-              {
+              <span>{item.name}</span>
 
-                !collapsed && (
+            )}
 
-                  <span>{item.name}</span>
+          </NavLink>
 
-                )
-
-              }
-
-            </NavLink>
-
-          ))
-
-        }
+        ))}
 
       </div>
 

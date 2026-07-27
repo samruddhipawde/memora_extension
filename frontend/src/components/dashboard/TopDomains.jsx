@@ -11,7 +11,9 @@ const TopDomains = () => {
   const [domains, setDomains] = useState([]);
 
   useEffect(() => {
+
     loadDomains();
+
   }, []);
 
   const loadDomains = async () => {
@@ -26,6 +28,8 @@ const TopDomains = () => {
 
       console.log(err);
 
+      setDomains([]);
+
     }
 
   };
@@ -36,7 +40,11 @@ const TopDomains = () => {
 
       className="top-domains"
 
-      whileHover={{ y:-5 }}
+      initial={{ opacity:0, y:20 }}
+
+      animate={{ opacity:1, y:0 }}
+
+      transition={{ duration:.3 }}
 
     >
 
@@ -52,7 +60,7 @@ const TopDomains = () => {
 
           <h3>Top Domains</h3>
 
-          <span>Most visited websites</span>
+          <span>Most Visited Websites</span>
 
         </div>
 
@@ -62,27 +70,31 @@ const TopDomains = () => {
 
         {
 
-          domains.length===0 ?
+          domains.length === 0 ?
 
           <div className="empty">
 
-            No domains found
+            No domains found.
 
           </div>
 
           :
 
-          domains.map((item,index)=>(
+          domains
+
+          .slice(0,5)
+
+          .map((item,index)=>(
 
             <div
 
-              key={index}
-
               className="domain-item"
+
+              key={item.domain || index}
 
             >
 
-              <div>
+              <div className="domain-info">
 
                 <h4>
 

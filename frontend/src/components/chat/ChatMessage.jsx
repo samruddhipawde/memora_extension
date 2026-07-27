@@ -1,6 +1,8 @@
 import "./ChatMessage.css";
 
-import { User, Bot } from "lucide-react";
+import { User } from "lucide-react";
+
+import assistant from "../../assets/ai/assistant.png";
 
 const ChatMessage = ({ message }) => {
 
@@ -8,11 +10,27 @@ const ChatMessage = ({ message }) => {
 
   return (
 
-    <div className={`chat-message ${isUser ? "user" : "assistant"}`}>
+    <div
+      className={`chat-message ${isUser ? "user" : "assistant"}`}
+    >
 
       <div className="message-avatar">
 
-        {isUser ? <User size={18}/> : <Bot size={18}/>}
+        {
+
+          isUser ?
+
+          <User size={18}/>
+
+          :
+
+          <img
+            src={assistant}
+            alt="Assistant"
+            className="assistant-chat-logo"
+          />
+
+        }
 
       </div>
 

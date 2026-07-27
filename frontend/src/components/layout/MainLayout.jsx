@@ -7,19 +7,19 @@ const MainLayout = ({ children }) => {
 
   return (
 
-    <div className="main-layout">
+    <div className="layout">
 
       <Sidebar />
 
-      <div className="main-content">
+      <div className="layout-content">
 
         <Navbar />
 
-        <div className="main-page">
+        <main className="page-content">
 
           {children}
 
-        </div>
+        </main>
 
       </div>
 

@@ -14,9 +14,9 @@ FolderKanban
 
 } from "lucide-react";
 
-const QuickActions=()=>{
+const QuickActions = () => {
 
-const navigate=useNavigate();
+const navigate = useNavigate();
 
 const actions=[
 
@@ -26,7 +26,7 @@ title:"Save Memory",
 
 description:"Save any webpage instantly.",
 
-icon:<PlusCircle size={28}/>,
+icon:<PlusCircle size={24}/>,
 
 path:"/save"
 
@@ -38,7 +38,7 @@ title:"Semantic Search",
 
 description:"Find memories using AI.",
 
-icon:<Search size={28}/>,
+icon:<Search size={24}/>,
 
 path:"/search"
 
@@ -48,9 +48,9 @@ path:"/search"
 
 title:"AI Chat",
 
-description:"Ask questions about your memories.",
+description:"Ask questions from memories.",
 
-icon:<BrainCircuit size={28}/>,
+icon:<BrainCircuit size={24}/>,
 
 path:"/chat"
 
@@ -60,9 +60,9 @@ path:"/chat"
 
 title:"Collections",
 
-description:"Organize everything neatly.",
+description:"Manage memory collections.",
 
-icon:<FolderKanban size={28}/>,
+icon:<FolderKanban size={24}/>,
 
 path:"/collections"
 

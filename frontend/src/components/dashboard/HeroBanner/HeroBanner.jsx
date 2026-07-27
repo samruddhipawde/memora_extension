@@ -1,64 +1,52 @@
 import "./HeroBanner.css";
-
 import logo from "../../../assets/logo/memora-logo.png";
+import { useAuth } from "../../../context/AuthContext";
 
-const HeroBanner=()=>{
+const HeroBanner = () => {
 
-const hour=new Date().getHours();
+  const { user } = useAuth();
 
-let greeting="Hello";
+  const hour = new Date().getHours();
 
-if(hour<12){
+  let greeting = "Hello";
 
-greeting="Good Morning";
+  if(hour < 12) greeting = "Good Morning";
+  else if(hour < 18) greeting = "Good Afternoon";
+  else greeting = "Good Evening";
 
-}
+  return(
 
-else if(hour<18){
+    <div className="hero-banner">
 
-greeting="Good Afternoon";
+      <div className="hero-left">
 
-}
+        <h1>
 
-else{
+          {greeting}
 
-greeting="Good Evening";
+          {user?.full_name ? `, ${user.full_name}` : ""} 👋
 
-}
+        </h1>
 
-return(
-
-<div className="hero-banner">
-
-<div>
-
-<h1>
-
-{greeting} 👋
-
-</h1>
-
-<p>
-
-Welcome back to Memora.
-
-Organize memories, search instantly, and let AI remember everything for you.
-
+        <p>
+Here's what's happening with your memory journey.
 </p>
 
-</div>
+      </div>
 
-<img
+      <img
 
-src={logo}
+        src={logo}
 
-alt="Memora"
+        alt="Memora"
 
-/>
+        className="hero-logo"
 
-</div>
+      />
 
-);
+    </div>
+
+  );
 
 };
 

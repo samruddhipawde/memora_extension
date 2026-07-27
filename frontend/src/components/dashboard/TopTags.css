@@ -45,13 +45,13 @@
 
 
 
-.tags-container {
+.tags-container{
 
-    display:flex;
+display:grid;
 
-    flex-wrap:wrap;
+grid-template-columns:repeat(2,1fr);
 
-    gap:10px;
+gap:10px;
 
 }
 
