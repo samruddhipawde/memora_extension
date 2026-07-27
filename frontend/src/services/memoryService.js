@@ -1,101 +1,312 @@
-import api from "./api";
+import axios from "axios";
 
-/* ===========================
-   Dashboard
-=========================== */
 
-export const getDashboardStats = async () => {
-  const { data } = await api.get("/memory/dashboard");
-  return data;
+const API_URL = "http://localhost:8000";
+
+
+
+const getAuthConfig = () => {
+
+    const token =
+        localStorage.getItem("access_token") ||
+        localStorage.getItem("token");
+
+
+    return {
+
+        headers: {
+
+            Authorization: `Bearer ${token}`
+
+        }
+
+    };
+
 };
 
-export const getRecentMemories = async () => {
-  const { data } = await api.get("/memory/recent");
-  return data;
-};
 
-export const getTopDomains = async () => {
-  const { data } = await api.get("/memory/dashboard/top-domains");
-  return data;
-};
 
-export const getTopTags = async () => {
-  const { data } = await api.get("/memory/dashboard/top-tags");
-  return data;
-};
 
-export const getAIInsight = async () => {
-  const { data } = await api.get("/memory/dashboard/insight");
-  return data;
-};
-
-/* ===========================
-   Memories
-=========================== */
-
-export const getAllMemories = async () => {
-  const { data } = await api.get("/memory/all");
-  return data;
-};
-
-export const getMemory = async (id) => {
-  const { data } = await api.get(`/memory/${id}`);
-  return data;
-};
-
-export const updateMemory = async (id, payload) => {
-  const { data } = await api.patch(`/memory/update/${id}`, payload);
-  return data;
-};
-
-export const deleteMemory = async (id) => {
-  const { data } = await api.delete(`/memory/delete/${id}`);
-  return data;
-};
-
-export const favoriteMemory = async (id) => {
-  const { data } = await api.patch(`/memory/favorite/${id}`);
-  return data;
-};
-
-/* ===========================
-   Search
-=========================== */
-
-export const searchMemories = async (query) => {
-  const { data } = await api.post("/memory/search", {
-    query,
-  });
-
-  return data;
-};
-
-export const searchMemory = searchMemories;
-
-/* ===========================
-   Favorites
-=========================== */
-
-export const getFavoriteMemories = async () => {
-  const { data } = await api.get("/memory/favorites");
-  return data;
-};
-
-/* ===========================
-   Recent
-=========================== */
-
-export const getRecentMemoryList = async () => {
-  const { data } = await api.get("/memory/recent");
-  return data;
-};
-
-export const getMostVisited = async () => {
-  const { data } = await api.get("/memory/dashboard/most-visited");
-  return data;
-};
+// SAVE MEMORY
 
 export const saveMemory = async (data) => {
-  const response = await api.post("/memory/save", data);
-  return response.data;
+
+    const response = await axios.post(
+
+        `${API_URL}/memory/save`,
+
+        data,
+
+        getAuthConfig()
+
+    );
+
+    return response.data;
+
+};
+
+
+
+
+// DASHBOARD STATS
+
+export const getDashboardStats = async () => {
+
+    const response = await axios.get(
+
+        `${API_URL}/memory/dashboard`,
+
+        getAuthConfig()
+
+    );
+
+
+    return response.data;
+
+};
+
+
+
+
+// RECENT MEMORIES
+
+export const getRecentMemories = async () => {
+
+    const response = await axios.get(
+
+        `${API_URL}/memory/recent`,
+
+        getAuthConfig()
+
+    );
+
+
+    return response.data;
+
+};
+
+
+
+
+// ALL MEMORIES
+
+export const getAllMemories = async (params={}) => {
+
+    const response = await axios.get(
+
+        `${API_URL}/memory/all`,
+
+        {
+
+            ...getAuthConfig(),
+
+            params
+
+        }
+
+    );
+
+
+    return response.data;
+
+};
+
+
+
+
+// FAVORITES
+
+export const getFavoriteMemories = async () => {
+
+    const response = await axios.get(
+
+        `${API_URL}/memory/favorites`,
+
+        getAuthConfig()
+
+    );
+
+
+    return response.data;
+
+};
+
+
+
+
+// FAVORITE TOGGLE
+
+export const favoriteMemory = async(id)=>{
+
+
+    const response = await axios.patch(
+
+        `${API_URL}/memory/favorite/${id}`,
+
+        {},
+
+        getAuthConfig()
+
+    );
+
+
+    return response.data;
+
+};
+
+
+
+export const toggleFavorite = favoriteMemory;
+
+
+
+
+// UPDATE MEMORY
+
+export const updateMemory = async(id,data)=>{
+
+
+    const response = await axios.patch(
+
+        `${API_URL}/memory/update/${id}`,
+
+        data,
+
+        getAuthConfig()
+
+    );
+
+
+    return response.data;
+
+};
+
+
+
+
+// DELETE MEMORY
+
+export const deleteMemory = async(id)=>{
+
+
+    const response = await axios.delete(
+
+        `${API_URL}/memory/delete/${id}`,
+
+        getAuthConfig()
+
+    );
+
+
+    return response.data;
+
+};
+
+
+
+
+// SEARCH
+
+export const searchMemories = async(query)=>{
+
+
+    const response = await axios.post(
+
+        `${API_URL}/memory/search`,
+
+        {
+            query
+        },
+
+        getAuthConfig()
+
+    );
+
+
+    return response.data;
+
+};
+
+
+
+
+// TOP TAGS
+
+export const getTopTags = async()=>{
+
+
+    const response = await axios.get(
+
+        `${API_URL}/memory/dashboard/top-tags`,
+
+        getAuthConfig()
+
+    );
+
+
+    return response.data;
+
+};
+
+
+
+
+// TOP DOMAINS
+
+export const getTopDomains = async()=>{
+
+
+    const response = await axios.get(
+
+        `${API_URL}/memory/dashboard/top-domains`,
+
+        getAuthConfig()
+
+    );
+
+
+    return response.data;
+
+};
+
+
+
+
+// MOST VISITED
+
+export const getMostVisited = async()=>{
+
+
+    const response = await axios.get(
+
+        `${API_URL}/memory/dashboard/most-visited`,
+
+        getAuthConfig()
+
+    );
+
+
+    return response.data;
+
+};
+
+
+
+
+// AI INSIGHT
+
+export const getAIInsight = async()=>{
+
+
+    const response = await axios.get(
+
+        `${API_URL}/memory/dashboard/insight`,
+
+        getAuthConfig()
+
+    );
+
+
+    return response.data;
+
 };
