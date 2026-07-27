@@ -1,11 +1,62 @@
+from sqlalchemy.orm import Session
+
+from app.models.memory_model import Memory
+
 from app.services.ai_service import semantic_search
 from app.services.intent_service import detect_intent
+
 from app.core.groq_client import client
 
 MODEL = "llama-3.3-70b-versatile"
 
 
+def build_memory_context(memories):
+
+    context = ""
+
+    for index, memory in enumerate(memories, start=1):
+
+        context += f"""
+==================================================
+
+Memory {index}
+
+Title:
+{memory.title}
+
+Website:
+{memory.url}
+
+Domain:
+{memory.domain}
+
+Visited On:
+{memory.created_at}
+
+Visit Count:
+{memory.visit_count}
+
+Reading Time:
+{memory.reading_time} min
+
+Tags:
+{memory.tags}
+
+Summary:
+{memory.ai_summary}
+
+Content:
+{memory.raw_content[:3000]}
+
+==================================================
+
+"""
+
+    return context
+
+
 def chat_with_memories(
+    db: Session,
     user_id: int,
     question: str
 ):
@@ -40,30 +91,9 @@ def chat_with_memories(
         top_k=5
     )
 
-    context = ""
+    memory_ids = results.get("ids", [])
 
-    if (
-        results.get("documents")
-        and len(results["documents"]) > 0
-        and len(results["documents"][0]) > 0
-    ):
-
-        documents = results["documents"][0]
-
-        metadatas = results["metadatas"][0]
-
-        for i, (document, metadata) in enumerate(
-            zip(documents, metadatas),
-            start=1
-        ):
-
-            context += (
-                f"Memory {i}\n"
-                f"----------------------------\n"
-                f"{document}\n\n"
-            )
-
-    else:
+    if not memory_ids:
 
         return (
             "😕 I couldn't find any memories related to your question.\n\n"
@@ -73,36 +103,87 @@ def chat_with_memories(
             "• Asking a broader question"
         )
 
-    # ===========================================
+    memory_ids = [int(memory_id) for memory_id in memory_ids]
+
+    memory_map = {
+
+        memory.id: memory
+
+        for memory in (
+            db.query(Memory)
+            .filter(
+                Memory.user_id == user_id,
+                Memory.id.in_(memory_ids)
+            )
+            .all()
+        )
+
+    }
+
+    memories = [
+
+        memory_map[memory_id]
+
+        for memory_id in memory_ids
+
+        if memory_id in memory_map
+
+    ]
+
+    context = build_memory_context(memories)
+        # ===========================================
     # SYSTEM PROMPT
     # ===========================================
 
     system_prompt = """
 You are Memora AI.
 
-You answer questions using the user's saved memories.
+You are a personal browsing memory assistant.
+
+Your job is to help users remember what they previously searched,
+read and learned.
+
+The memories you receive contain:
+
+- Title
+- Website
+- Domain
+- Visit Date
+- Visit Count
+- Reading Time
+- Tags
+- AI Summary
+- Page Content
 
 Rules:
 
-1. Use the retrieved memories as your primary source.
+1. Always answer using the provided memories.
 
-2. If the memories contain enough information,
-answer confidently.
-
-3. You may paraphrase, simplify, and explain the information found in the memories.
-
-4. If multiple memories discuss the topic,
+2. If multiple memories are related,
 combine them into one answer.
 
-5. Only say "I couldn't find relevant memories"
-when NO retrieved memory is related to the user's question.
+3. If the user asks:
+- "When..."
+→ use the Visit Date.
 
-6. Never make up facts that are not supported by the memories.
+4. If the user asks:
+- "Where..."
+- "Which website..."
+→ mention the Website URLs.
 
-7. Keep answers conversational and helpful.
+5. If the user asks:
+- "What did I learn..."
+→ summarize using AI Summary and Content.
 
-8. If the memory contains a title, summary, or content related to the question,
-use that information directly instead of saying there isn't enough information.
+6. If the answer exists in the memories,
+NEVER say you couldn't find it.
+
+7. If no memories are provided,
+politely say you couldn't find anything.
+
+8. Be conversational like ChatGPT.
+
+9. Never invent information that isn't present in the memories.
 """
 
     user_prompt = f"""
@@ -127,15 +208,19 @@ Relevant Memories:
         temperature=0.2,
 
         messages=[
+
             {
                 "role": "system",
                 "content": system_prompt
             },
+
             {
                 "role": "user",
                 "content": user_prompt
             }
+
         ]
+
     )
 
     return response.choices[0].message.content

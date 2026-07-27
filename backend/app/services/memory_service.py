@@ -12,6 +12,7 @@ from datetime import datetime
 from datetime import timezone
 from app.utils.reading_time import calculate_reading_time
 from app.utils.domain import extract_domain
+from app.utils.url_normalizer import normalize_url
 
 def save_memory(
     db: Session,
@@ -21,6 +22,8 @@ def save_memory(
     favicon: str,
     raw_content: str
 ):
+
+    url = normalize_url(url)
 
     existing_memory = (
         db.query(Memory)

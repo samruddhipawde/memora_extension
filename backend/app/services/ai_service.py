@@ -108,7 +108,10 @@ def semantic_search(
         }
     )
 
-    return results
+    return {
+        "ids": results.get("ids", [[]])[0],
+        "documents": results.get("documents", [[]])[0]
+    }
 
 
 def delete_embedding(memory_id: int):

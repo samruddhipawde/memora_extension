@@ -1,8 +1,7 @@
 from fastapi import FastAPI
-
 from app.database.database import Base
 from app.database.database import engine
-
+# Import models so SQLAlchemy registers them before create_all()
 from app.models.user_model import User
 from app.models.memory_model import Memory
 from app.models.collection_model import Collection
@@ -13,6 +12,7 @@ from app.api.chat_api import router as chat_router
 from app.api.collection_api import router as collection_router
 
 from fastapi.middleware.cors import CORSMiddleware
+
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
