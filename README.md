@@ -1,608 +1,635 @@
 <div align="center">
 
-<img src="./frontend/src/assets/logo/memora-logo.png" width="140"/>
-
 # 🧠 Memora
 
 ### Browse Everything. Forget Nothing.
 
-<img src="https://readme-typing-svg.demolab.com?font=Poppins&weight=600&size=24&pause=1200&color=8A2BE2&center=true&vCenter=true&width=850&lines=AI+Powered+Browser+Memory+Assistant;Save+Everything+You+Browse;Semantic+Search+Across+Your+Memories;Chat+With+Your+Browsing+History"/>
-
----
-
-![Python](https://img.shields.io/badge/Python-3.12+-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
-![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
-![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
-![ChromaDB](https://img.shields.io/badge/ChromaDB-FF8C00?style=for-the-badge)
-![JWT](https://img.shields.io/badge/JWT-Authentication-success?style=for-the-badge)
-![Groq](https://img.shields.io/badge/Groq-AI-black?style=for-the-badge)
+<img src="https://readme-typing-svg.demolab.com?font=Poppins&weight=600&size=24&pause=1200&color=8A2BE2&center=true&vCenter=true&width=900&lines=Your+Second+Brain+for+the+Web;Remember+Everything+You+Browse;AI+Powered+Browser+Memory+Assistant;Search+Your+Browsing+History+Using+Natural+Language"/>
 
 <br>
 
-<img src="https://komarev.com/ghpvc/?username=snehal1805-dev&style=for-the-badge&color=blueviolet"/>
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
+![ChromaDB](https://img.shields.io/badge/VectorDB-ChromaDB-orange?style=for-the-badge)
+![Groq](https://img.shields.io/badge/Groq-AI-black?style=for-the-badge)
 
 </div>
 
 ---
 
-# 🚀 About Memora
+# 🚀 What is Memora?
 
-**Memora** is an AI-powered Browser Memory Assistant that remembers everything you browse.
+Imagine browsing hundreds of webpages every week.
 
-Instead of relying on browser history or bookmarks, Memora transforms webpages into intelligent memories that can be searched, summarized, organized, and queried using natural language.
+Interesting blogs.
 
-Memora automatically:
+YouTube tutorials.
 
-- 📄 Captures webpage content
-- 🧠 Generates AI summaries
-- 🏷 Creates smart tags
-- 🔍 Generates semantic embeddings
-- 💾 Stores memories securely
-- 💬 Lets you chat with your browsing history
+Documentation.
 
-Think of Memora as your **second brain for the internet**.
+GitHub repositories.
 
----
+Research papers.
 
-# ✨ Key Highlights
+After a few days...
 
-- 🧠 AI Generated Summaries
-- 🔍 Semantic Search
-- 💬 AI Chat
-- ⭐ Favorite Memories
-- 📊 Dashboard Analytics
-- 📁 Collections
-- 🏷 Smart Tags
-- 📚 Reading Time Estimation
-- 🌐 Domain Analytics
-- 📈 Visit Tracking
-- 🔐 JWT Authentication
-- ⚡ FastAPI Backend
-- 🚀 React Frontend
-- 🤖 ChromaDB Vector Search
+You remember **reading something**, but not **where**.
+
+Searching browser history doesn't help.
+
+Bookmarks become messy.
+
+Google can't search *your own knowledge*.
+
+### That's exactly why Memora exists.
+
+Memora transforms your browsing history into an **AI searchable knowledge base.**
+
+Every webpage becomes a memory.
+
+Every memory becomes searchable.
+
+Everything stays organized.
 
 ---
 
-# 📸 Preview
-
-> Screenshots coming soon...
-
-```
-
-Dashboard
-
-Semantic Search
-
-AI Chat
-
-Collections
-
-Analytics
-
-```
-
----
-
-# 📑 Table of Contents
-
-- [🚀 About Memora](#-about-memora)
-- [✨ Key Highlights](#-key-highlights)
-- [🏗 Architecture](#-architecture)
-- [⚙ Tech Stack](#-tech-stack)
-- [📂 Project Structure](#-project-structure)
-- [🧠 AI Workflow](#-ai-workflow)
-- [📊 Dashboard Features](#-dashboard-features)
-- [🔍 Semantic Search](#-semantic-search)
-- [💬 AI Chat](#-ai-chat)
-- [🔐 Authentication](#-authentication)
-- [🚀 Installation](#-installation)
-- [🛣 Future Roadmap](#-future-roadmap)
-- [👨‍💻 Contributors](#-contributors)
-- [📜 License](#-license)
-
----
-# 🏗 Architecture
-
-```mermaid
-graph TD
-
-A[🌐 Browser Extension]
-
---> B[⚡ FastAPI Backend]
-
-B --> C[🗄 MySQL Database]
-
-B --> D[🧠 Groq AI]
-
-B --> E[(📦 ChromaDB)]
-
-E --> F[🔍 Semantic Search]
-
-C --> G[📊 Dashboard]
-
-E --> H[💬 AI Chat]
-
-D --> I[📝 AI Summary]
-
-D --> J[🏷 AI Tags]
-```
-
----
-
-# 🧠 AI Workflow
-
-```mermaid
-flowchart TD
-
-A[Webpage]
-
---> B[Extract Content]
-
---> C[Generate AI Summary]
-
---> D[Generate AI Tags]
-
---> E[Create Embeddings]
-
---> F[Store in ChromaDB]
-
---> G[Store Metadata in MySQL]
-
---> H[Semantic Search]
-
---> I[AI Chat]
-
---> J[Response]
-```
-
----
-
-# ⚙ Tech Stack
-
-| Category | Technologies |
-|-----------|--------------|
-| Frontend | React, Vite, Axios, React Router |
-| Backend | FastAPI, SQLAlchemy |
-| Database | MySQL |
-| Vector Database | ChromaDB |
-| Authentication | JWT, Passlib, OAuth2 |
-| AI | Groq Llama 3.3 70B |
-| Embeddings | Sentence Transformers |
-| Styling | CSS3 |
-| Version Control | Git & GitHub |
-
----
-
-# 📂 Project Structure
-
-```text
-memora_extension
-
-│
-
-├── backend
-
-│   ├── app
-
-│   │   ├── api
-
-│   │   ├── core
-
-│   │   ├── database
-
-│   │   ├── models
-
-│   │   ├── schemas
-
-│   │   ├── services
-
-│   │   ├── utils
-
-│   │   └── main.py
-
-│   │
-
-│   ├── uploads
-
-│   ├── chroma_db
-
-│   ├── requirements.txt
-
-│   └── .env
-
-│
-
-└── frontend
-
-    ├── src
-
-    │   ├── assets
-
-    │   ├── components
-
-    │   ├── context
-
-    │   ├── hooks
-
-    │   ├── pages
-
-    │   ├── routes
-
-    │   ├── services
-
-    │   └── styles
-
-    │
-
-    ├── package.json
-
-    └── vite.config.js
-```
-
----
-
-# 🚀 Core Features
-
-## 🧠 AI Memory Engine
-
-- Save webpages instantly
-
-- AI generated summaries
-
-- AI generated tags
-
-- Reading time estimation
-
-- Domain extraction
-
-- Visit tracking
-
----
-
-## 🔍 Semantic Search
-
-Search naturally using AI.
-
-Examples:
-
-```
-Which YouTube songs did I watch?
-
-```
-
-```
-Show me FastAPI tutorials.
-
-```
-
-```
-React authentication articles.
-
-```
-
-```
-Git merge conflict solution.
-
-```
-
-Instead of keyword matching, Memora searches using vector embeddings.
-
----
-
-## 💬 AI Chat
-
-Chat directly with your saved memories.
-
-Example:
-
-```
-What songs did I listen to yesterday?
-
-```
-
-```
-Which websites did I visit about React?
-
-```
-
-```
-Summarize my recent learning.
-
-```
-
----
-
-## ⭐ Favorites
-
-- Mark important memories
-
-- Quick access
-
-- Personal knowledge base
-
----
-
-## 📊 Dashboard
-
-- Total Memories
-
-- Favorite Memories
-
-- Today's Memories
-
-- Top Domains
-
-- Top Tags
-
-- Most Visited Pages
-
-- AI Insight
-
-- Recent Memories
-
----
-
-## 📁 Collections
-
-Organize memories into:
-
-- Learning
-
-- DSA
-
-- AI
-
-- College
-
-- Internship
-
-- Personal
-
----
-# 🚀 Installation
-
-## 1️⃣ Clone Repository
-
-```bash
-git clone https://github.com/snehal1805-dev/memora_extension.git
-
-cd memora_extension
-```
-
----
-
-## 2️⃣ Backend Setup
-
-```bash
-cd backend
-
-python -m venv venv
-```
-
-### Activate Virtual Environment
-
-Windows
-
-```bash
-venv\Scripts\activate
-```
-
-Linux / macOS
-
-```bash
-source venv/bin/activate
-```
-
-Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-Create `.env`
-
-```env
-DB_USER=root
-DB_PASSWORD=your_password
-DB_HOST=localhost
-DB_PORT=3306
-DB_NAME=memora
-
-SECRET_KEY=your_secret_key
-
-GROQ_API_KEY=your_groq_api_key
-```
-
-Run Backend
-
-```bash
-uvicorn app.main:app --reload
-```
-
----
-
-## 3️⃣ Frontend Setup
-
-```bash
-cd frontend
-
-npm install
-```
-
-Run Frontend
-
-```bash
-npm run dev
-```
-
----
-
-# 🔐 Authentication
-
-Memora uses JWT Authentication.
-
-Features
-
-- Secure Signup
-- Secure Login
-- Password Hashing (bcrypt)
-- JWT Access Tokens
-- Protected Routes
-- User-specific Memories
-
----
-
-# 📡 API Overview
-
-## Authentication
-
-```
-POST /auth/register
-
-POST /auth/login
-```
-
----
-
-## Memory
-
-```
-POST /memory/save
-
-GET /memory/all
-
-GET /memory/recent
-
-GET /memory/dashboard
-
-GET /memory/favorites
-
-PATCH /memory/update/{id}
-
-PATCH /memory/favorite/{id}
-
-DELETE /memory/delete/{id}
-```
-
----
-
-## AI
-
-```
-POST /memory/search
-
-GET /memory/dashboard/insight
-```
-
----
-
-## Dashboard Analytics
-
-```
-GET /memory/dashboard/top-domains
-
-GET /memory/dashboard/top-tags
-
-GET /memory/dashboard/most-visited
-```
-
----
-
-# 📈 Future Roadmap
-
-- Browser Extension Auto Save
-- AI Recommendations
-- PDF Memory
-- OCR Support
-- Voice Search
-- Smart Collections
-- Memory Timeline
-- Chrome History Sync
-- Firefox Support
-- Edge Support
-- Mobile Application
-- AI Knowledge Graph
-- Shared Collections
-- Team Workspace
-- Dark / Light Themes
-
----
-
-# 🤝 Contributors
+# 🎯 Who is Memora for?
 
 <table>
+
 <tr>
 
-<td align="center">
+<td width="25%" align="center">
 
-<a href="https://github.com/snehal1805-dev">
+### 👨‍💻 Developers
 
-<img src="https://github.com/snehal1805-dev.png" width="130" style="border-radius:50%;"/>
-
-</a>
-
-### Snehal Matole
-
-🧠 Backend Development
-
-⚡ FastAPI
-
-🤖 AI Integration
-
-🗄 Database Design
+Save documentation, GitHub repositories and tutorials.
 
 </td>
 
-<td align="center">
+<td width="25%" align="center">
 
-<a href="https://github.com/YOUR_FRIEND_USERNAME">
+### 🎓 Students
 
-<img src="https://github.com/YOUR_FRIEND_USERNAME.png" width="130" style="border-radius:50%;"/>
+Never lose notes, articles or learning resources.
 
-</a>
+</td>
 
-### Samruddhi Pawde
+<td width="25%" align="center">
 
-🎨 Frontend Development
+### 🔬 Researchers
 
-⚛ React
+Search months of collected information instantly.
 
-✨ UI / UX
+</td>
 
-💜 Dashboard Design
+<td width="25%" align="center">
+
+### 🚀 Lifelong Learners
+
+Build your own AI-powered second brain.
 
 </td>
 
 </tr>
+
 </table>
 
 ---
 
-# ⭐ Support
+# ❌ The Problem
 
-If you like this project,
+```text
+Bookmarks ❌
 
-Give it a ⭐ on GitHub.
+Browser History ❌
 
-It motivates us to build more amazing AI projects.
+Thousands of Tabs ❌
+
+Endless Searching ❌
+
+Information Overload ❌
+```
 
 ---
 
-# 📜 License
+# ✅ The Memora Solution
 
-This project is licensed under the **MIT License**.
+```mermaid
+flowchart LR
+
+A[🌐 Browse]
+
+--> B[💾 Save]
+
+--> C[🧠 AI Understands]
+
+--> D[🗄 Organizes]
+
+--> E[🔍 Search Naturally]
+
+--> F[💬 Chat with Memories]
+```
+
+---
+
+# ✨ Core Experience
+
+Instead of remembering...
+
+> "Where did I read that article?"
+
+You simply ask...
+
+```
+
+Show me the FastAPI tutorial
+I saved last week.
+
+```
+
+or
+
+```
+
+Find React Authentication
+documentation.
+
+```
+
+or
+
+```
+
+Which YouTube video taught
+JWT Authentication?
+
+```
+
+Memora finds it instantly.
+
+---
+
+# 💡 Why Memora?
+
+Instead of storing **bookmarks**,
+
+Memora stores **knowledge.**
+
+Instead of searching **URLs**,
+
+Memora searches **meaning.**
+
+Instead of remembering **websites**,
+
+You remember **ideas.**
+
+---
+
+# 🧩 Core Features
+
+| 🧠 AI Memory | 🔍 Semantic Search | 💬 AI Chat |
+|-------------|--------------------|------------|
+| AI summarizes every webpage | Search naturally using meaning | Ask questions from your saved memories |
+
+| ⭐ Favorites | 📊 Dashboard | 📁 Collections |
+|-------------|--------------|----------------|
+| Save important memories | Personal browsing analytics | Organize memories by topic |
+
+---
+# ⚡ How Memora Works
+
+Every webpage you visit goes through an intelligent AI pipeline.
+
+Instead of simply storing links,
+
+Memora transforms webpages into searchable knowledge.
+
+```mermaid
+flowchart TD
+
+A["🌐 User Browses a Webpage"]
+
+--> B["📄 Extract Webpage Content"]
+
+--> C["🧠 AI Generates Summary"]
+
+--> D["🏷 AI Creates Smart Tags"]
+
+--> E["🧬 Generate Semantic Embeddings"]
+
+--> F["📦 Store Vector Embeddings (ChromaDB)"]
+
+--> G["🗄 Store Metadata (MySQL)"]
+
+--> H["🔍 Semantic Search"]
+
+--> I["💬 AI Chat"]
+
+--> J["🚀 Instant Knowledge Retrieval"]
+```
+
+---
+
+# 🧠 AI Pipeline
+
+<div align="center">
+
+| Step | What Happens |
+|------|---------------|
+| 🌐 Capture | Memora captures webpage content |
+| 🧠 Understand | AI reads and summarizes it |
+| 🏷 Organize | Smart tags are automatically generated |
+| 🧬 Embed | Content becomes vector embeddings |
+| 💾 Store | Metadata and vectors are securely stored |
+| 🔍 Retrieve | Search using natural language |
+| 💬 Converse | Chat with your own browsing history |
+
+</div>
+
+---
+
+# 🤖 AI Powered Features
+
+<table>
+
+<tr>
+
+<td width="33%" align="center">
+
+## 🧠 AI Summary
+
+Automatically generates concise summaries for every webpage.
+
+No need to reread long articles.
+
+</td>
+
+<td width="33%" align="center">
+
+## 🏷 Smart Tags
+
+Automatically classifies webpages into meaningful topics.
+
+No manual organization.
+
+</td>
+
+<td width="33%" align="center">
+
+## 🔍 Semantic Search
+
+Find information by meaning instead of exact keywords.
+
+</td>
+
+</tr>
+
+<tr>
+
+<td width="33%" align="center">
+
+## 💬 AI Chat
+
+Talk naturally with your memories.
+
+Ask questions exactly like ChatGPT.
+
+</td>
+
+<td width="33%" align="center">
+
+## 📊 AI Insights
+
+Understand your browsing habits through intelligent analytics.
+
+</td>
+
+<td width="33%" align="center">
+
+## ⚡ Instant Retrieval
+
+Retrieve relevant webpages within seconds.
+
+</td>
+
+</tr>
+
+</table>
+
+---
+
+# 🎨 Dashboard at a Glance
+
+> *(Replace these placeholders with screenshots later.)*
+
+| Dashboard | Search |
+|-----------|--------|
+| 🖼 Dashboard Screenshot | 🖼 Semantic Search Screenshot |
+
+<br>
+
+| AI Chat | Collections |
+|----------|-------------|
+| 🖼 AI Chat Screenshot | 🖼 Collections Screenshot |
+
+---
+
+# 🌟 Why Memora is Different
+
+<table>
+
+<tr>
+
+<th>Traditional Browser</th>
+
+<th>Memora</th>
+
+</tr>
+
+<tr>
+
+<td>
+
+❌ Browser History
+
+</td>
+
+<td>
+
+✅ AI Memory
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+❌ Endless Bookmarks
+
+</td>
+
+<td>
+
+✅ Organized Knowledge
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+❌ Keyword Search
+
+</td>
+
+<td>
+
+✅ Semantic Search
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+❌ Manual Organization
+
+</td>
+
+<td>
+
+✅ AI Generated Tags
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+❌ Search URLs
+
+</td>
+
+<td>
+
+✅ Search Ideas
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+❌ Static History
+
+</td>
+
+<td>
+
+✅ Interactive AI Chat
+
+</td>
+
+</tr>
+
+</table>
+
+---
+
+# 💜 Built for Knowledge Workers
+
+Whether you're
+
+- 👨‍💻 Building software
+- 🎓 Studying for exams
+- 📚 Reading research papers
+- 🎥 Watching tutorials
+- 🧠 Learning AI
+- 🚀 Exploring new technologies
+
+Memora makes sure you never lose valuable knowledge again.
+
+---
+
+# 🚀 Getting Started
+
+Clone the repository
+
+```bash
+git clone https://github.com/snehal1805-dev/memora_extension.git
+```
+
+Move into the project
+
+```bash
+cd memora_extension
+```
+
+Backend
+
+```bash
+cd backend
+pip install -r requirements.txt
+uvicorn app.main:app --reload
+```
+
+Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Open your browser
+
+```
+http://localhost:5173
+```
+
+---
+
+# 🛣 Roadmap
+
+```mermaid
+journey
+
+title Memora Roadmap
+
+section Completed
+
+Authentication : 5: Done
+
+Memory Storage : 5: Done
+
+AI Summary : 5: Done
+
+Semantic Search : 5: Done
+
+Dashboard : 5: Done
+
+Favorites : 5: Done
+
+Collections : 5: Done
+
+AI Insight : 5: Done
+
+section Next
+
+Browser Extension : 4: In Progress
+
+AI Chat : 3: In Progress
+
+Memory Timeline : 2: Planned
+
+PDF Memory : 2: Planned
+
+OCR Support : 1: Planned
+
+Voice Search : 1: Planned
+
+Team Workspace : 1: Planned
+```
+
+---
+
+# 🌍 Vision
+
+We believe the future of browsing isn't about saving **webpages**.
+
+It's about remembering **knowledge**.
+
+Memora aims to become an intelligent memory layer for the browser—one place where everything you learn, watch, read, and discover is organized, searchable, and always available.
+
+---
+
+# 🤝 Meet the Builders
+
+<div align="center">
+
+<table>
+
+<tr>
+
+<td align="center" width="50%">
+
+<a href="https://github.com/snehal1805-dev">
+
+<img src="https://github.com/snehal1805-dev.png" width="140"/>
+
+</a>
+
+### 🧠 Snehal Matole
+
+**Backend • AI • Architecture**
+
+FastAPI • Vector Search • LLM Integration
+
+</td>
+
+<td align="center" width="50%">
+
+<a href="https://github.com/YOUR_FRIEND_USERNAME">
+
+<img src="https://github.com/YOUR_FRIEND_USERNAME.png" width="140"/>
+
+</a>
+
+### 🎨 Samruddhi Pawde
+
+**Frontend • UI/UX**
+
+React • Dashboard • User Experience
+
+</td>
+
+</tr>
+
+</table>
+
+</div>
+
+> Replace `YOUR_FRIEND_USERNAME` with Samruddhi's GitHub username.
+
+---
+
+# 💜 Built With
+
+<div align="center">
+
+FastAPI • React • MySQL • ChromaDB • Groq AI • JWT • SQLAlchemy
+
+</div>
 
 ---
 
 <div align="center">
 
-## 🧠 Memora
+# ⭐ If you like Memora...
+
+Give this repository a ⭐
+
+It helps us grow and motivates us to build even better AI tools.
+
+<br>
+
+### 🧠 Memora
 
 ### Browse Everything. Forget Nothing.
 
-Made with ❤️ by Snehal Matole & Samruddhi Pawde
-
-<img src="https://readme-typing-svg.demolab.com?font=Poppins&weight=600&size=20&pause=1000&color=8A2BE2&center=true&vCenter=true&width=650&lines=Thanks+for+visiting+our+project!;Happy+Coding!;See+you+again!"/>
+<img src="https://readme-typing-svg.demolab.com?font=Poppins&size=20&pause=1000&color=8A2BE2&center=true&vCenter=true&width=650&lines=Thanks+for+visiting+Memora!;Happy+Coding!;Keep+Learning+🚀"/>
 
 </div>
