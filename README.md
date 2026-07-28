@@ -1,275 +1,381 @@
-<div align="center">
+# 🧠 Memora — Browse Everything. Forget Nothing.
 
-# 🧠 Memora Extension
+<p align="center">
 
-### **Browse Everything. Forget Nothing.**
+<img src="./frontend/src/assets/logo/memora-logo.png" width="140"/>
 
-An AI-powered Chrome Extension that intelligently captures webpages, generates AI summaries, creates semantic embeddings, and stores everything as searchable memories.
+</p>
 
----
+<p align="center">
 
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
-![Chrome Extension](https://img.shields.io/badge/Chrome%20Extension-MV3-yellow?style=for-the-badge&logo=googlechrome)
-![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
-![ChromaDB](https://img.shields.io/badge/ChromaDB-000000?style=for-the-badge)
-![Google Gemini](https://img.shields.io/badge/Google-Gemini-blue?style=for-the-badge)
+### AI Powered Browser Memory Assistant
 
-</div>
+**Capture • Organize • Search • Chat with Everything You Browse**
+
+</p>
 
 ---
 
-# 📖 About
+<p align="center">
 
-Memora Extension is an AI-powered Chrome extension that lets users save any webpage with a single click. Every saved page is processed using AI to generate concise summaries and semantic embeddings, making previously visited content instantly searchable through natural language.
+![Python](https://img.shields.io/badge/Python-3.12+-blue?style=for-the-badge\&logo=python)
+![FastAPI](https://img.shields.io/badge/FastAPI-Backend-009688?style=for-the-badge\&logo=fastapi)
+![React](https://img.shields.io/badge/React-Frontend-61DAFB?style=for-the-badge\&logo=react)
+![MySQL](https://img.shields.io/badge/MySQL-Database-4479A1?style=for-the-badge\&logo=mysql)
+![ChromaDB](https://img.shields.io/badge/ChromaDB-Vector%20Database-orange?style=for-the-badge)
+![Groq](https://img.shields.io/badge/Groq-LLM-black?style=for-the-badge)
+![JWT](https://img.shields.io/badge/Auth-JWT-success?style=for-the-badge)
 
-Instead of relying on bookmarks or browser history, Memora builds a searchable knowledge base of everything you browse.
+</p>
+
+---
+
+# 📖 About Memora
+
+**Memora** is an AI-powered Browser Memory Assistant that remembers everything you browse.
+
+Instead of bookmarking hundreds of webpages or searching through browser history, Memora automatically converts webpages into searchable AI memories.
+
+Every webpage is summarized, tagged, embedded into a vector database, and becomes searchable using natural language.
+
+Think of it as your **second brain for the web.**
 
 ---
 
 # ✨ Features
 
-- 🔐 Secure JWT Authentication
-- 🌐 Save Current Webpage
-- 🤖 AI Generated Summary
-- 🧠 Semantic Search using Embeddings
-- 💾 Automatic Memory Storage
-- 📚 ChromaDB Vector Database
-- 🗄️ MySQL Database
-- ⚡ FastAPI Backend
-- 🏷️ Tags Support
-- ⭐ Favorite Memories
-- 🔍 Intelligent Memory Retrieval
+## 🧠 AI Memory
+
+* Save webpages instantly
+* AI generated summaries
+* Automatic tags
+* Reading time calculation
+* Domain extraction
+* Visit tracking
 
 ---
 
-# 🏗️ Architecture
+## 🔍 Semantic Search
+
+Search naturally like:
+
+> "Which YouTube songs did I watch yesterday?"
+
+> "Show me React authentication articles"
+
+> "Find FastAPI tutorials"
+
+Instead of keyword matching, Memora searches using **vector embeddings**.
+
+---
+
+## 💬 AI Chat
+
+Ask questions from your saved memories.
+
+Examples:
+
+* What projects was I working on?
+* Which songs did I listen to?
+* Show me browser history about React.
+* What websites did I visit today?
+
+The AI searches only **your personal memories** before generating an answer.
+
+---
+
+## 📊 Dashboard
+
+Interactive dashboard including:
+
+* Total Memories
+* Favorite Memories
+* Today's Memories
+* Total Domains
+* Recently Saved Memories
+* Most Visited Pages
+* Top Domains
+* Top Tags
+* AI Insight Card
+
+---
+
+## ⭐ Favorites
+
+Bookmark important memories.
+
+Quickly access frequently used webpages.
+
+---
+
+## 🗂 Collections
+
+Organize memories into collections.
+
+Examples:
+
+* DSA
+* React
+* Internship
+* College
+* Research
+
+---
+
+## 🤖 AI Insight
+
+Memora automatically analyzes browsing behavior and generates personalized insights.
+
+Example:
+
+> "You've recently explored many FastAPI resources. Consider building a REST API project."
+
+---
+
+## 🔐 Authentication
+
+* JWT Authentication
+* Secure Login
+* Secure Signup
+* Password Hashing (bcrypt)
+* Protected Routes
+* User-specific memories
+
+---
+
+# 🏗 System Architecture
 
 ```text
-                Chrome Extension
-                       │
-                       ▼
-            Extract Current Webpage
-                       │
-                       ▼
-                FastAPI Backend
-                       │
-      ┌────────────────┼────────────────┐
-      ▼                ▼                ▼
- Google Gemini      MySQL         ChromaDB
-  AI Summary      Metadata      Vector Search
-      │                │                │
-      └────────────────┼────────────────┘
-                       ▼
-               Semantic Search
+Browser Extension
+        │
+        ▼
+FastAPI Backend
+        │
+        ▼
+AI Processing
+ ├── Summary
+ ├── Tags
+ ├── Embeddings
+        │
+        ▼
+MySQL Database
+        │
+        ▼
+Chroma Vector Database
+        │
+        ▼
+Semantic Search
+        │
+        ▼
+AI Chat
 ```
 
 ---
 
-# 🚀 Tech Stack
+# ⚙ Tech Stack
 
-## Extension
+## Frontend
 
-- Vanilla JavaScript
-- HTML5
-- CSS3
-- Chrome Extension Manifest V3
+* React
+* Vite
+* Axios
+* React Router
+* Framer Motion
+* Lucide React
+
+---
 
 ## Backend
 
-- FastAPI
-- SQLAlchemy
-- MySQL
-- ChromaDB
-- Sentence Transformers
-- Google Gemini API
-- JWT Authentication
-- Pydantic
+* FastAPI
+* SQLAlchemy
+* MySQL
+* JWT Authentication
+* Passlib
+* Python-Jose
+* ChromaDB
+* Sentence Transformers
+* Groq API
 
 ---
 
 # 📂 Project Structure
 
 ```text
-memora_extension/
+memora_extension
 
-├── backend/
-│   ├── app/
-│   ├── chroma_db/
-│   ├── requirements.txt
+backend
+│
+├── app
+│   ├── api
+│   ├── core
+│   ├── database
+│   ├── models
+│   ├── schemas
+│   ├── services
+│   ├── utils
 │   └── main.py
 │
-├── extension/
-│   ├── manifest.json
-│   ├── popup.html
-│   ├── popup.js
-│   ├── popup.css
-│   ├── api.js
-│   ├── auth.js
-│   ├── memory.js
-│   ├── content.js
-│   ├── background.js
-│   └── icons/
+├── uploads
+├── chroma_db
+└── requirements.txt
+
+frontend
 │
-└── README.md
+├── src
+│   ├── assets
+│   ├── components
+│   ├── context
+│   ├── hooks
+│   ├── pages
+│   ├── routes
+│   ├── services
+│   └── styles
 ```
 
 ---
 
-# ⚙️ Installation
+# 🔄 AI Workflow
+
+```text
+Webpage
+
+↓
+
+Extract Content
+
+↓
+
+AI Summary
+
+↓
+
+AI Tags
+
+↓
+
+Generate Embeddings
+
+↓
+
+Store in ChromaDB
+
+↓
+
+Save Metadata in MySQL
+
+↓
+
+Semantic Search
+
+↓
+
+AI Chat Retrieval
+
+↓
+
+Final AI Response
+```
+
+---
+
+# 🚀 Installation
 
 ## Clone Repository
 
 ```bash
-git clone https://github.com/snehal1805-dev/memora_extension.git
-
-cd memora_extension
+git clone <repository-url>
 ```
 
 ---
 
-## Backend Setup
-
-Create a virtual environment
+## Backend
 
 ```bash
+cd backend
+
 python -m venv venv
-```
 
-Activate it
-
-Windows
-
-```bash
 venv\Scripts\activate
-```
 
-Install dependencies
-
-```bash
 pip install -r requirements.txt
-```
 
-Run the backend
-
-```bash
 uvicorn app.main:app --reload
 ```
 
 ---
 
-## Chrome Extension Setup
+## Frontend
 
-1. Open Chrome
-2. Visit
+```bash
+cd frontend
 
-```
-chrome://extensions
-```
+npm install
 
-3. Enable **Developer Mode**
-4. Click **Load unpacked**
-5. Select the **extension** folder
-
----
-
-# 📸 Screenshots
-
-## Login
-
-> *(Add Screenshot Here)*
-
----
-
-## Save Current Page
-
-> *(Add Screenshot Here)*
-
----
-
-## Success Message
-
-> *(Add Screenshot Here)*
-
----
-
-## Search Memories
-
-> *(Add Screenshot Here)*
-
----
-
-# 🔄 Workflow
-
-```text
-Open Any Website
-        │
-        ▼
-Click Save
-        │
-        ▼
-Extract Webpage Content
-        │
-        ▼
-Generate AI Summary
-        │
-        ▼
-Create Embeddings
-        │
-        ▼
-Store Metadata in MySQL
-        │
-        ▼
-Store Vectors in ChromaDB
-        │
-        ▼
-Semantic Search Ready
+npm run dev
 ```
 
 ---
 
-# 🌟 Future Roadmap
+# 📌 Current Features
 
-- [ ] Auto Save Browsing History
-- [ ] AI Chat with Memories
-- [ ] Smart Collections
-- [ ] Browser History Timeline
-- [ ] Read Later
-- [ ] Memory Analytics
-- [ ] Cross Device Sync
+* ✅ Authentication
+* ✅ AI Summaries
+* ✅ AI Tags
+* ✅ Browser Memory Storage
+* ✅ Semantic Search
+* ✅ AI Chat
+* ✅ Favorites
+* ✅ Dashboard Analytics
+* ✅ Most Visited Pages
+* ✅ Top Domains
+* ✅ Top Tags
+* ✅ AI Insights
+* ✅ Collections
+* ✅ Reading Time
+* ✅ Visit Tracking
 
 ---
 
-# 👨‍💻 Developer
+# 🚀 Future Roadmap
+
+* Browser Extension Sync
+* PDF Memory
+* Image OCR Memory
+* Voice Search
+* AI Memory Timeline
+* Chrome History Sync
+* Memory Sharing
+* Mobile App
+* Dark/Light Themes
+* Smart Recommendations
+
+---
+
+# 👨‍💻 Contributors
 
 **Snehal Matole**
 
-GitHub
-
-https://github.com/snehal1805-dev
+AI Developer | Full Stack Developer
 
 ---
-
-**Samruddhi Pawde**
-
-Github
-
-https://github.com/samruddhipawde
 
 # ⭐ Support
 
-If you found this project useful, please consider giving it a ⭐ on GitHub.
+If you found this project useful,
 
-It helps others discover the project and motivates further development.
+⭐ Star the repository
+
+🍴 Fork it
+
+🤝 Contribute
 
 ---
 
-<div align="center">
+<p align="center">
 
-### 🧠 Memora
+## Browse Everything. Forget Nothing.
 
-**Browse Everything. Forget Nothing.**
+Built with ❤️ using FastAPI, React and AI.
 
-Made with ❤️ using FastAPI, AI and Chrome Extensions.
-
-</div>
+</p>
