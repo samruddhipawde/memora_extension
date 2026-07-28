@@ -13,10 +13,11 @@ from app.schemas.memory_schema import (
 
 from app.schemas.search_schema import SearchRequest
 from app.schemas.dashboard_schema import DashboardStats
+from app.schemas.insight_schema import InsightResponse
 
 from app.utils.dependencies import current_user
+
 from app.services.insight_service import generate_ai_insight
-from app.schemas.insight_schema import InsightResponse
 from app.services.ai_service import semantic_search
 
 from app.services.memory_service import (
@@ -35,10 +36,12 @@ from app.services.memory_service import (
     get_memory_details
 )
 
+
 router = APIRouter(
     prefix="/memory",
     tags=["Memory"]
 )
+
 
 
 @router.get(
@@ -49,11 +52,11 @@ def dashboard_stats(
     db: Session = Depends(get_db),
     user: User = Depends(current_user)
 ):
-
     return get_dashboard_stats(
         db,
         user.id
     )
+
 
 
 @router.get(
@@ -64,11 +67,11 @@ def recent_memories(
     db: Session = Depends(get_db),
     user: User = Depends(current_user)
 ):
-
     return get_recent_memories(
         db,
         user.id
     )
+
 
 
 @router.post(
@@ -91,6 +94,7 @@ def save_page(
     )
 
 
+
 @router.post("/search")
 def search_memories(
     request: SearchRequest,
@@ -103,19 +107,24 @@ def search_memories(
         top_k=5
     )
 
+
     response = []
+
 
     MAX_DISTANCE = 1.30
 
-    ids = results["ids"]
-    documents = results["documents"]
-    metadatas = results["metadatas"]
-    distances = results["distances"]
+
+    ids = results.get("ids", [])
+    documents = results.get("documents", [])
+    metadatas = results.get("metadatas", [])
+    distances = results.get("distances", [])
+
 
     for i in range(len(ids)):
 
         if distances[i] > MAX_DISTANCE:
             continue
+
 
         response.append(
             {
@@ -126,56 +135,48 @@ def search_memories(
             }
         )
 
+
     if not response:
         return {
             "message": "No relevant memories found."
         }
 
+
     return response
+
+
+
+
+
 @router.get(
     "/all",
     response_model=list[MemoryResponse]
 )
 def all_memories(
-
     page: int = 1,
     limit: int = 20,
-
     favorite: bool | None = None,
-
     domain: str | None = None,
-
     tag: str | None = None,
-
     collection_id: int | None = None,
-
     sort: str = "recent",
 
     db: Session = Depends(get_db),
     user: User = Depends(current_user)
-
 ):
 
     return get_all_memories(
-
         db=db,
-
         user_id=user.id,
-
         page=page,
-
         limit=limit,
-
         favorite=favorite,
-
         domain=domain,
-
         tag=tag,
-
         collection_id=collection_id,
-
         sort=sort
     )
+
 
 
 @router.get(
@@ -191,6 +192,8 @@ def favorite_memories(
         db,
         user.id
     )
+
+
 
 @router.get(
     "/{memory_id}/details",
@@ -208,13 +211,17 @@ def memory_details_api(
         memory_id
     )
 
+
     if not memory:
         raise HTTPException(
             status_code=404,
             detail="Memory not found."
         )
 
+
     return memory
+
+
 
 
 @router.get(
@@ -233,13 +240,17 @@ def one_memory(
         memory_id
     )
 
+
     if not memory:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Memory not found."
         )
 
+
     return memory
+
+
 
 
 @router.patch(
@@ -258,16 +269,20 @@ def favorite_memory(
         memory_id
     )
 
+
     if not memory:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Memory not found."
         )
 
+
     return toggle_favorite(
         db,
         memory
     )
+
+
 
 
 @router.patch(
@@ -287,17 +302,21 @@ def update_memory_api(
         memory_id
     )
 
+
     if not memory:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Memory not found."
         )
 
+
     return update_memory(
         db,
         memory,
         tags=request.tags
     )
+
+
 
 
 @router.delete(
@@ -315,20 +334,26 @@ def remove_memory(
         memory_id
     )
 
+
     if not memory:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Memory not found."
         )
 
+
     delete_memory(
         db,
         memory
     )
 
+
     return {
         "message": "Memory deleted successfully."
     }
+
+
+
 
 @router.get("/dashboard/top-domains")
 def top_domains(
@@ -341,6 +366,7 @@ def top_domains(
         user.id
     )
 
+
     return [
         {
             "domain": domain,
@@ -348,6 +374,9 @@ def top_domains(
         }
         for domain, count in domains
     ]
+
+
+
 
 @router.get("/dashboard/top-tags")
 def top_tags(
@@ -360,6 +389,7 @@ def top_tags(
         user.id
     )
 
+
     return [
         {
             "tag": tag,
@@ -367,6 +397,9 @@ def top_tags(
         }
         for tag, count in tags
     ]
+
+
+
 
 @router.get("/dashboard/most-visited")
 def most_visited_pages(
@@ -379,6 +412,7 @@ def most_visited_pages(
         user.id
     )
 
+
     return [
         {
             "id": memory.id,
@@ -389,6 +423,9 @@ def most_visited_pages(
         }
         for memory in memories
     ]
+
+
+
 
 @router.get(
     "/dashboard/insight",
