@@ -4,9 +4,9 @@ export const askAI = async (question) => {
 
   try {
 
-    const response = await api.post("/chat", {
-      question,
-    });
+   const response = await api.post("/chat/", {
+  question,
+});
 
     return response.data;
 

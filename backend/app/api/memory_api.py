@@ -97,22 +97,29 @@ def search_memories(
     user: User = Depends(current_user)
 ):
 
-    results = semantic_search(request.query)
+    results = semantic_search(
+        query=request.query,
+        user_id=user.id
+    )
 
     response = []
 
-    for i in range(len(results["ids"][0])):
+    ids = results.get("ids", [[]])[0]
+    documents = results.get("documents", [[]])[0]
+    metadatas = results.get("metadatas", [[]])[0]
+    distances = results.get("distances", [[]])[0]
+
+    for i in range(len(ids)):
         response.append(
             {
-                "memory_id": results["ids"][0][i],
-                "title": results["metadatas"][0][i]["title"],
-                "content": results["documents"][0][i],
-                "distance": results["distances"][0][i],
+                "memory_id": ids[i],
+                "title": metadatas[i].get("title", ""),
+                "content": documents[i],
+                "distance": distances[i],
             }
         )
 
     return response
-
 
 @router.get(
     "/all",

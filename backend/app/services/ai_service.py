@@ -105,17 +105,17 @@ def semantic_search(
         n_results=top_k,
         where={
             "user_id": user_id
-        }
+        },
+        include=[
+            "documents",
+            "metadatas",
+            "distances"
+        ]
     )
 
-    return {
-        "ids": results.get("ids", [[]])[0],
-        "documents": results.get("documents", [[]])[0]
-    }
-
+    return results
 
 def delete_embedding(memory_id: int):
-
     collection.delete(
         ids=[str(memory_id)]
     )
