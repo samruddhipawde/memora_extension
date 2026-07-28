@@ -1,112 +1,93 @@
 import "./QuickActions.css";
 
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import {
-
-PlusCircle,
-
-Search,
-
-BrainCircuit,
-
-FolderKanban
-
+  PlusCircle,
+  Search,
+  BrainCircuit,
+  FolderKanban,
 } from "lucide-react";
+
+import SaveMemoryModal from "../SaveMemoryModal";
 
 const QuickActions = () => {
 
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
-const actions=[
+  const [openSave, setOpenSave] = useState(false);
 
-{
+  const actions = [
 
-title:"Save Memory",
+    {
+      title: "Save Memory",
+      description: "Save any webpage instantly.",
+      icon: <PlusCircle size={24} />,
+      action: () => setOpenSave(true),
+    },
 
-description:"Save any webpage instantly.",
+    {
+      title: "Semantic Search",
+      description: "Find memories using AI.",
+      icon: <Search size={24} />,
+      action: () => navigate("/search"),
+    },
 
-icon:<PlusCircle size={24}/>,
+    {
+      title: "AI Chat",
+      description: "Ask questions from memories.",
+      icon: <BrainCircuit size={24} />,
+      action: () => navigate("/chat"),
+    },
 
-path:"/save"
+    {
+      title: "Collections",
+      description: "Manage memory collections.",
+      icon: <FolderKanban size={24} />,
+      action: () => navigate("/collections"),
+    },
 
-},
+  ];
 
-{
+  return (
+    <>
 
-title:"Semantic Search",
+      <div className="quick-actions">
 
-description:"Find memories using AI.",
+        {actions.map((action) => (
 
-icon:<Search size={24}/>,
+          <div
+            key={action.title}
+            className="action-card"
+            onClick={action.action}
+          >
 
-path:"/search"
+            <div className="action-icon">
+              {action.icon}
+            </div>
 
-},
+            <h3>{action.title}</h3>
 
-{
+            <p>{action.description}</p>
 
-title:"AI Chat",
+          </div>
 
-description:"Ask questions from memories.",
+        ))}
 
-icon:<BrainCircuit size={24}/>,
+      </div>
 
-path:"/chat"
+      <SaveMemoryModal
+        open={openSave}
+        onClose={() => setOpenSave(false)}
+        onSaved={() => {
+          setOpenSave(false);
+          window.dispatchEvent(new Event("memoryUpdated"));
+        }}
+      />
 
-},
-
-{
-
-title:"Collections",
-
-description:"Manage memory collections.",
-
-icon:<FolderKanban size={24}/>,
-
-path:"/collections"
-
-}
-
-];
-
-return(
-
-<div className="quick-actions">
-
-{
-
-actions.map(action=>(
-
-<div
-
-key={action.title}
-
-className="action-card"
-
-onClick={()=>navigate(action.path)}
-
->
-
-<div className="action-icon">
-
-{action.icon}
-
-</div>
-
-<h3>{action.title}</h3>
-
-<p>{action.description}</p>
-
-</div>
-
-))
-
-}
-
-</div>
-
-);
+    </>
+  );
 
 };
 
