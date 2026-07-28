@@ -2,7 +2,6 @@ from app.core.groq_client import client
 from app.core.embeddings import generate_embedding
 from app.core.chroma import collection
 
-
 MODEL = "llama-3.3-70b-versatile"
 
 
@@ -53,6 +52,7 @@ def generate_tags(content: str):
 
     return response.choices[0].message.content.strip()
 
+
 def store_embedding(
     memory_id: int,
     user_id: int,
@@ -92,6 +92,7 @@ Content:
         ]
     )
 
+
 def semantic_search(
     query: str,
     user_id: int,
@@ -105,12 +106,19 @@ def semantic_search(
         n_results=top_k,
         where={
             "user_id": user_id
-        }
+        },
+        include=[
+            "documents",
+            "metadatas",
+            "distances"
+        ]
     )
 
     return {
         "ids": results.get("ids", [[]])[0],
-        "documents": results.get("documents", [[]])[0]
+        "documents": results.get("documents", [[]])[0],
+        "metadatas": results.get("metadatas", [[]])[0],
+        "distances": results.get("distances", [[]])[0]
     }
 
 
