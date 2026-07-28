@@ -13,7 +13,7 @@ const ChatPage = () => {
   const [messages, setMessages] = useState([
     {
       sender: "assistant",
-      text: "Hi 👋 I'm Memora AI. Ask me anything about your saved memories."
+      text: "Hii👋 I'm Memora AI. Ask me anything about your saved memories."
     }
   ]);
 
