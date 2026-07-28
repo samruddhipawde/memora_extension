@@ -99,17 +99,12 @@ def search_memories(
 
     results = semantic_search(
         query=request.query,
-<<<<<<< HEAD
         user_id=user.id,
         top_k=5
-=======
-        user_id=user.id
->>>>>>> a5b990963896f1dc9a30bba8baf68d03ac0dedf2
     )
 
     response = []
 
-<<<<<<< HEAD
     MAX_DISTANCE = 1.3
 
     for i in range(len(results["ids"])):
@@ -130,22 +125,6 @@ def search_memories(
         return {
         "message": "No relevant memories found."
     }
-=======
-    ids = results.get("ids", [[]])[0]
-    documents = results.get("documents", [[]])[0]
-    metadatas = results.get("metadatas", [[]])[0]
-    distances = results.get("distances", [[]])[0]
-
-    for i in range(len(ids)):
-        response.append(
-            {
-                "memory_id": ids[i],
-                "title": metadatas[i].get("title", ""),
-                "content": documents[i],
-                "distance": distances[i],
-            }
-        )
->>>>>>> a5b990963896f1dc9a30bba8baf68d03ac0dedf2
 
     return response
 
