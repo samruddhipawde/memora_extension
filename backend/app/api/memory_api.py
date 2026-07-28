@@ -97,22 +97,36 @@ def search_memories(
     user: User = Depends(current_user)
 ):
 
-    results = semantic_search(request.query)
+    results = semantic_search(
+        query=request.query,
+        user_id=user.id,
+        top_k=5
+    )
 
     response = []
 
-    for i in range(len(results["ids"][0])):
+    MAX_DISTANCE = 1.3
+
+    for i in range(len(results["ids"])):
+
+        if results["distances"][i] > MAX_DISTANCE:
+                continue
+
         response.append(
-            {
-                "memory_id": results["ids"][0][i],
-                "title": results["metadatas"][0][i]["title"],
-                "content": results["documents"][0][i],
-                "distance": results["distances"][0][i],
-            }
-        )
+        {
+            "memory_id": int(results["ids"][i]),
+            "title": results["metadatas"][i]["title"],
+            "content": results["documents"][i],
+            "distance": results["distances"][i]
+        }
+    )
+
+    if not response:
+        return {
+        "message": "No relevant memories found."
+    }
 
     return response
-
 
 @router.get(
     "/all",
