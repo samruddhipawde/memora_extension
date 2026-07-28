@@ -55,16 +55,18 @@ const ChatPage = () => {
 
     } catch (error) {
 
-      console.error(error);
+      console.error("AI Error:", error);
+      console.log("Response:", error.response);
 
       setMessages((prev) => [
         ...prev,
         {
           sender: "assistant",
           text:
-            error?.response?.status === 500
-              ? "⚠️ AI Server Error."
-              : "⚠️ Unable to contact AI.",
+            error?.response?.data?.detail ||
+            error?.response?.data?.message ||
+            error.message ||
+            "Unable to contact AI.",
         },
       ]);
 
