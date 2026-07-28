@@ -15,50 +15,50 @@ const SearchPage = () => {
   const initialQuery = params.get("q") || "";
 
   const [query, setQuery] = useState(initialQuery);
-
   const [results, setResults] = useState([]);
-
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
 
-    if(initialQuery){
-
+    if (initialQuery) {
       handleSearch(initialQuery);
-
     }
 
-  },[]);
+  }, []);
 
-  const handleSearch = async(text)=>{
+  const handleSearch = async (text) => {
 
     setQuery(text);
 
-    if(!text.trim()){
+    if (!text.trim()) {
 
       setResults([]);
-
       return;
 
     }
 
-    try{
+    try {
 
       setLoading(true);
 
       const data = await searchMemories(text);
 
-      setResults(data);
+      if (Array.isArray(data)) {
 
-    }
+        setResults(data);
 
-    catch(err){
+      } else {
+
+        setResults([]);
+
+      }
+
+    } catch (err) {
 
       console.log(err);
+      setResults([]);
 
-    }
-
-    finally{
+    } finally {
 
       setLoading(false);
 
@@ -66,96 +66,75 @@ const SearchPage = () => {
 
   };
 
-  return(
+  return (
 
-<div className="search-page">
+    <div className="search-page">
 
-<h1>
+      <h1>Semantic Search</h1>
 
-Semantic Search
+      <div className="search-box">
 
-</h1>
+        <SearchIcon size={20} />
 
-<div className="search-box">
+        <input
+          value={query}
+          placeholder="Search anything..."
+          onChange={(e) => handleSearch(e.target.value)}
+        />
 
-<SearchIcon size={20}/>
+      </div>
 
-<input
+      {loading && (
 
-value={query}
+        <p className="loading">
+          Searching...
+        </p>
 
-placeholder="Search anything..."
+      )}
 
-onChange={(e)=>handleSearch(e.target.value)}
+      <div className="search-results">
 
-/>
+        {!loading && results.length === 0 ? (
 
-</div>
+          <p className="loading">
+            No memories found.
+          </p>
 
-{
+        ) : (
 
-loading &&
+          Array.isArray(results) &&
+          results.map((item, index) => (
 
-<p className="loading">
+            <div
+              className="search-result-card"
+              key={index}
+            >
 
-Searching...
+              <h3>{item.title}</h3>
 
-</p>
+              <p>{item.content}</p>
 
-}
+              <div className="distance">
 
-<div className="search-results">
+                Similarity Score :{" "}
 
-{
+                {item.distance !== undefined
+                  ? (1 - item.distance).toFixed(2)
+                  : "N/A"}
 
-results.length===0 && !loading ?
+              </div>
 
-<p className="loading">
+            </div>
 
-No memories found.
+          ))
 
-</p>
+        )}
 
-:
+      </div>
 
-results.map((item,index)=>(
+    </div>
 
-<div
-className="search-result-card"
-key={index}
->
-
-<h3>
-
-{item.title}
-
-</h3>
-
-<p>
-
-{item.content}
-
-</p>
-
-<div className="distance">
-
-Similarity Score :
-
-{(1-item.distance).toFixed(2)}
-
-</div>
-
-</div>
-
-))
-
-}
-
-</div>
-
-</div>
-
-);
+  );
 
 };
 

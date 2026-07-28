@@ -5,7 +5,13 @@ import { useParams } from "react-router-dom";
 import { FolderKanban } from "lucide-react";
 import { motion } from "framer-motion";
 
-import { getCollectionMemories } from "../../services/collectionService";
+import {
+  getCollectionMemories,
+  removeMemoryFromCollection,
+  addMemoryToCollection,
+} from "../../services/collectionService";
+
+import { getAllMemories } from "../../services/memoryService";
 import MemoryCard from "../memories/MemoryCard";
 
 const CollectionDetailsPage = () => {
@@ -15,9 +21,13 @@ const CollectionDetailsPage = () => {
   const [memories, setMemories] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const [allMemories, setAllMemories] = useState([]);
+  const [selectedMemory, setSelectedMemory] = useState("");
+
   useEffect(() => {
 
     loadMemories();
+    loadAllMemories();
 
   }, [id]);
 
@@ -44,7 +54,6 @@ const CollectionDetailsPage = () => {
     } catch (err) {
 
       console.error(err);
-
       setMemories([]);
 
     } finally {
@@ -55,11 +64,55 @@ const CollectionDetailsPage = () => {
 
   };
 
-  const handleDelete = (memoryId) => {
+  const loadAllMemories = async () => {
 
-    setMemories((prev) =>
-      prev.filter((memory) => memory.id !== memoryId)
-    );
+    try {
+
+      const data = await getAllMemories();
+
+      setAllMemories(Array.isArray(data) ? data : []);
+
+    } catch (err) {
+
+      console.log(err);
+
+    }
+
+  };
+
+  const handleAddMemory = async () => {
+
+    if (!selectedMemory) return;
+
+    try {
+
+      await addMemoryToCollection(id, selectedMemory);
+
+      setSelectedMemory("");
+
+      loadMemories();
+
+    } catch (err) {
+
+      console.log(err);
+
+    }
+
+  };
+
+  const handleDelete = async (memoryId) => {
+
+    try {
+
+      await removeMemoryFromCollection(memoryId);
+
+      loadMemories();
+
+    } catch (err) {
+
+      console.log(err);
+
+    }
 
   };
 
@@ -68,9 +121,7 @@ const CollectionDetailsPage = () => {
     return (
 
       <div className="collection-loading">
-
         <h2>Loading Collection...</h2>
-
       </div>
 
     );
@@ -89,9 +140,7 @@ const CollectionDetailsPage = () => {
       <div className="collection-header">
 
         <div className="collection-icon">
-
           <FolderKanban size={34} />
-
         </div>
 
         <div>
@@ -106,11 +155,69 @@ const CollectionDetailsPage = () => {
 
       </div>
 
+      <div
+        style={{
+          display: "flex",
+          gap: "12px",
+          marginBottom: "25px",
+          alignItems: "center",
+        }}
+      >
+
+        <select
+          value={selectedMemory}
+          onChange={(e) => setSelectedMemory(e.target.value)}
+          style={{
+            padding: "12px",
+            borderRadius: "12px",
+            background: "#1E293B",
+            color: "white",
+            border: "1px solid rgba(255,255,255,.1)",
+            minWidth: "260px",
+          }}
+        >
+
+          <option value="">
+            Select Memory
+          </option>
+
+          {allMemories.map((memory) => (
+
+            <option
+              key={memory.id}
+              value={memory.id}
+            >
+
+              {memory.title}
+
+            </option>
+
+          ))}
+
+        </select>
+
+        <button
+          onClick={handleAddMemory}
+          style={{
+            padding: "12px 22px",
+            background: "#7C3AED",
+            border: "none",
+            borderRadius: "12px",
+            color: "white",
+            cursor: "pointer",
+            fontWeight: 600,
+          }}
+        >
+
+          Add Memory
+
+        </button>
+
+      </div>
+
       {
 
-        memories.length === 0 ?
-
-        (
+        memories.length === 0 ? (
 
           <div className="collection-empty">
 
@@ -126,11 +233,7 @@ const CollectionDetailsPage = () => {
 
           </div>
 
-        )
-
-        :
-
-        (
+        ) : (
 
           <div className="collection-memory-grid">
 

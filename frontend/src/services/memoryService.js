@@ -207,8 +207,7 @@ export const deleteMemory = async(id)=>{
 
 // SEARCH
 
-export const searchMemories = async(query)=>{
-
+export const searchMemories = async (query) => {
 
     const response = await axios.post(
 
@@ -222,10 +221,15 @@ export const searchMemories = async(query)=>{
 
     );
 
+    if (Array.isArray(response.data)) {
+        return response.data;
+    }
 
-    return response.data;
+    return [];
 
 };
+
+    
 
 
 

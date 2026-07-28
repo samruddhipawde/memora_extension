@@ -8,10 +8,13 @@ import {
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+
   const [user, setUser] = useState(null);
+
   const [loading, setLoading] = useState(true);
 
   const login = async (email, password) => {
+
     const data = await loginUser({
       email,
       password,
@@ -27,6 +30,7 @@ export const AuthProvider = ({ children }) => {
     setUser(current);
 
     return current;
+
   };
 
   const signup = async (
@@ -34,6 +38,7 @@ export const AuthProvider = ({ children }) => {
     email,
     password
   ) => {
+
     await registerUser({
       full_name,
       email,
@@ -41,36 +46,61 @@ export const AuthProvider = ({ children }) => {
     });
 
     return login(email, password);
+
   };
 
   const logout = () => {
+
     localStorage.removeItem("token");
+
     setUser(null);
+
   };
 
   useEffect(() => {
-    const checkLogin = async () => {
+
+    const initialize = async () => {
+
       const token = localStorage.getItem("token");
 
       if (!token) {
+
         setLoading(false);
+
         return;
+
       }
 
       try {
+
         const current = await getCurrentUser();
+
         setUser(current);
-      } catch {
-        localStorage.removeItem("token");
+
       }
 
-      setLoading(false);
+      catch {
+
+        localStorage.removeItem("token");
+
+        setUser(null);
+
+      }
+
+      finally {
+
+        setLoading(false);
+
+      }
+
     };
 
-    checkLogin();
+    initialize();
+
   }, []);
 
   return (
+
     <AuthContext.Provider
       value={{
         user,
@@ -80,10 +110,13 @@ export const AuthProvider = ({ children }) => {
         logout,
       }}
     >
+
       {children}
+
     </AuthContext.Provider>
+
   );
+
 };
 
-export const useAuth = () =>
-  useContext(AuthContext);
+export const useAuth = () => useContext(AuthContext);
