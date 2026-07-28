@@ -29,6 +29,7 @@ def generate_summary(text: str):
     return response.choices[0].message.content
 
 
+
 def generate_tags(content: str):
 
     response = client.chat.completions.create(
@@ -53,6 +54,8 @@ def generate_tags(content: str):
 
     return response.choices[0].message.content.strip()
 
+
+
 def store_embedding(
     memory_id: int,
     user_id: int,
@@ -76,7 +79,9 @@ Content:
 {content[:5000]}
 """
 
+
     embedding = generate_embedding(searchable_document)
+
 
     collection.add(
         ids=[str(memory_id)],
@@ -92,6 +97,8 @@ Content:
         ]
     )
 
+
+
 def semantic_search(
     query: str,
     user_id: int,
@@ -99,6 +106,7 @@ def semantic_search(
 ):
 
     embedding = generate_embedding(query)
+
 
     results = collection.query(
         query_embeddings=[embedding],
@@ -113,7 +121,9 @@ def semantic_search(
         ]
     )
 
+
     print(results)
+
 
     return {
         "ids": results.get("ids", [[]])[0],
@@ -122,9 +132,9 @@ def semantic_search(
         "distances": results.get("distances", [[]])[0]
     }
 
-    
 
 def delete_embedding(memory_id: int):
+
     collection.delete(
         ids=[str(memory_id)]
     )
