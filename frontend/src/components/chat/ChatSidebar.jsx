@@ -2,10 +2,15 @@ import "./ChatSidebar.css";
 
 import {
   MessageSquarePlus,
-  Trash2
+  Trash2,
 } from "lucide-react";
 
-const ChatSidebar = () => {
+const ChatSidebar = ({
+  conversations = [],
+  onNewChat,
+  onClearHistory,
+  onSelectConversation,
+}) => {
 
   return (
 
@@ -13,49 +18,97 @@ const ChatSidebar = () => {
 
       <h2>Memora AI</h2>
 
-      <button>
-
-        <MessageSquarePlus size={18}/>
-
+      <button
+        onClick={onNewChat}
+      >
+        <MessageSquarePlus size={18} />
         New Chat
-
       </button>
 
       <div
         style={{
-          flex:1,
-          display:"flex",
-          alignItems:"center",
-          justifyContent:"center",
-          color:"#94A3B8",
-          textAlign:"center",
-          padding:"30px"
+          flex: 1,
+          overflowY: "auto",
+          marginTop: "25px",
         }}
       >
 
-        <div>
+        {conversations.length === 0 ? (
 
-          <p
+          <div
             style={{
-              fontSize:"15px",
-              lineHeight:"1.8"
+              height: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              color: "#94A3B8",
+              textAlign: "center",
+              padding: "30px",
             }}
           >
 
-            Your conversations will appear here.
+            <p
+              style={{
+                fontSize: "15px",
+                lineHeight: "1.8",
+              }}
+            >
+              Your conversations will appear here.
+            </p>
 
-          </p>
+          </div>
 
-        </div>
+        ) : (
+
+          conversations.map((chat) => (
+
+            <div
+              key={chat.id}
+              onClick={() => onSelectConversation(chat.id)}
+              style={{
+                padding: "14px 16px",
+                marginBottom: "10px",
+                borderRadius: "12px",
+                cursor: "pointer",
+                background: "#1B2436",
+                color: "white",
+                transition: "0.25s",
+                border: "1px solid rgba(255,255,255,.05)",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "#7C3AED";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "#1B2436";
+              }}
+            >
+
+              <span
+                style={{
+                  display: "block",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                  fontWeight: 500,
+                }}
+              >
+                {chat.title}
+              </span>
+
+            </div>
+
+          ))
+
+        )}
 
       </div>
 
-      <button className="clear-btn">
-
-        <Trash2 size={18}/>
-
+      <button
+        className="clear-btn"
+        onClick={onClearHistory}
+      >
+        <Trash2 size={18} />
         Clear History
-
       </button>
 
     </div>

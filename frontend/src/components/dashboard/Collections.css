@@ -1,0 +1,73 @@
+.collections-card{
+
+    background:#111827;
+
+    border-radius:20px;
+
+    padding:18px;
+
+    border:1px solid rgba(255,255,255,.06);
+
+}
+
+.card-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:16px;
+
+}
+
+.card-header h3{
+
+    margin:0;
+
+    font-size:20px;
+
+    color:white;
+
+}
+
+.collection-item{
+
+    display:flex;
+
+    align-items:center;
+
+    padding:12px;
+
+    background:#0F172A;
+
+    border-radius:14px;
+
+    margin-bottom:10px;
+
+    transition:.25s;
+
+}
+
+.collection-item:hover{
+
+    background:#1E293B;
+
+}
+
+.collection-item h4{
+
+    margin:0;
+
+    color:white;
+
+    font-size:14px;
+
+}
+
+.collections-card p{
+
+    color:#94A3B8;
+
+}
