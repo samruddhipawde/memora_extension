@@ -21,12 +21,11 @@ const Sidebar = () => {
 
   const menu = [
 
-    {
-      name: "Dashboard",
-      icon: <LayoutDashboard size={20} />,
-      path: "/",
-    },
-
+   {
+  name: "Dashboard",
+  icon: <LayoutDashboard size={20} />,
+  path: "/dashboard",
+},
     {
       name: "Collections",
       icon: <FolderKanban size={20} />,
@@ -110,16 +109,13 @@ const Sidebar = () => {
 
         {menu.map((item) => (
 
-          <NavLink
-            key={item.path}
-            to={item.path}
-            end={item.path === "/"}
-            className={({ isActive }) =>
-              isActive
-                ? "menu-item active"
-                : "menu-item"
-            }
-          >
+         <NavLink
+  key={item.path}
+  to={item.path}
+  className={({ isActive }) =>
+    isActive ? "menu-item active" : "menu-item"
+}
+>
 
             <div className="menu-icon">
 
