@@ -1,7 +1,7 @@
 import "./Navbar.css";
 
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import {
   Search,
@@ -16,127 +16,91 @@ import SaveMemoryModal from "../dashboard/SaveMemoryModal";
 const Navbar = () => {
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const { user } = useAuth();
 
-  const [search,setSearch]=useState("");
+  const [search, setSearch] = useState("");
+  const [openSave, setOpenSave] = useState(false);
 
-  const [openSave,setOpenSave]=useState(false);
+  return (
+    <>
+      <header className="navbar">
 
-  return(
+        <div className="navbar-left">
 
-<>
+          <div className="search-box">
 
-<header className="navbar">
+            <Search size={18} />
 
-<div className="navbar-left">
+            <input
+              placeholder="Search memories..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  navigate(`/search?q=${search}`);
+                }
+              }}
+            />
 
-<div className="search-box">
+          </div>
 
-<Search size={18}/>
+        </div>
 
-<input
+        <div className="navbar-right">
 
-placeholder="Search memories..."
+          <button
+            className="save-btn"
+            onClick={() => setOpenSave(true)}
+          >
+            <Plus size={18} />
+            Save Memory
+          </button>
 
-value={search}
+          <button className="nav-icon">
+            <Bell size={20} />
+          </button>
 
-onChange={(e)=>setSearch(e.target.value)}
+          <button className="nav-icon">
+            <Moon size={20} />
+          </button>
 
-onKeyDown={(e)=>{
+          <div
+            className={
+              location.pathname === "/profile"
+                ? "profile-box active"
+                : "profile-box"
+            }
+            onClick={() => navigate("/profile")}
+          >
 
-if(e.key==="Enter"){
+            <div className="avatar">
+              {user?.full_name?.charAt(0) || "S"}
+            </div>
 
-navigate(`/search?q=${search}`);
+            <div>
+              <h4>{user?.full_name || "Samruddhi"}</h4>
+              <span>{user?.email}</span>
+            </div>
 
-}
+          </div>
 
-}}
+        </div>
 
-/>
+      </header>
 
-</div>
+      <SaveMemoryModal
+        open={openSave}
+        onClose={() => setOpenSave(false)}
+        onSaved={() => {
+          setOpenSave(false);
+          window.dispatchEvent(new Event("memoryUpdated"));
+        }}
+      />
 
-</div>
-
-<div className="navbar-right">
-
-<button
-
-className="save-btn"
-
-onClick={()=>setOpenSave(true)}
-
->
-
-<Plus size={18}/>
-
-Save Memory
-
-</button>
-
-<button className="nav-icon">
-
-<Bell size={20}/>
-
-</button>
-
-<button className="nav-icon">
-
-<Moon size={20}/>
-
-</button>
-
-<div className="profile-box">
-
-<div className="avatar">
-
-{user?.full_name?.charAt(0) || "S"}
-
-</div>
-
-<div>
-
-<h4>
-
-{user?.full_name || "Samruddhi"}
-
-</h4>
-
-<span>
-
-{user?.email}
-
-</span>
-
-</div>
-
-</div>
-
-</div>
-
-</header>
-
-<SaveMemoryModal
-
-open={openSave}
-
-onClose={()=>setOpenSave(false)}
-
-onSaved={()=>{
-
-setOpenSave(false);
-
-window.dispatchEvent(new Event("memoryUpdated"));
-
-}}
-
-/>
-
-</>
-
-);
-
+    </>
+  );
 };
 
 export default Navbar;

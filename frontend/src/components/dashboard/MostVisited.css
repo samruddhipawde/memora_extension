@@ -4,9 +4,19 @@ background:#111827;
 
 border:1px solid rgba(255,255,255,.06);
 
-border-radius:20px;
+border-radius:24px;
 
-padding:18px;
+padding:22px;
+
+transition:.3s;
+
+}
+
+.most-visited:hover{
+
+border-color:#8B5CF6;
+
+box-shadow:0 0 24px rgba(139,92,246,.15);
 
 }
 
@@ -16,17 +26,17 @@ display:flex;
 
 align-items:center;
 
-gap:12px;
+gap:14px;
 
-margin-bottom:16px;
+margin-bottom:20px;
 
 }
 
 .visit-icon{
 
-width:44px;
+width:48px;
 
-height:44px;
+height:48px;
 
 border-radius:14px;
 
@@ -36,9 +46,9 @@ align-items:center;
 
 justify-content:center;
 
-background:linear-gradient(135deg,#8B5CF6,#2563EB);
+background:rgba(139,92,246,.15);
 
-color:white;
+color:#8B5CF6;
 
 }
 
@@ -46,9 +56,9 @@ color:white;
 
 margin:0;
 
-font-size:19px;
+font-size:20px;
 
-font-weight:700;
+font-weight:600;
 
 color:white;
 
@@ -56,7 +66,7 @@ color:white;
 
 .top-card-header span{
 
-font-size:12px;
+font-size:13px;
 
 color:#94A3B8;
 
@@ -68,35 +78,35 @@ display:flex;
 
 align-items:center;
 
-gap:12px;
+gap:14px;
 
-padding:12px;
+padding:14px 16px;
+
+background:#0F172A;
 
 border-radius:14px;
 
-background:#1E293B;
+margin-bottom:12px;
 
-margin-bottom:10px;
-
-transition:.25s;
+transition:.3s;
 
 }
 
 .visited-card:hover{
 
-background:#263548;
+background:#1E293B;
+
+transform:translateX(4px);
 
 }
 
 .visited-card img{
 
-width:38px;
+width:42px;
 
-height:38px;
+height:42px;
 
 border-radius:10px;
-
-flex-shrink:0;
 
 }
 
@@ -114,9 +124,9 @@ margin:0;
 
 font-size:14px;
 
-font-weight:600;
+font-weight:500;
 
-color:white;
+color:#fff;
 
 white-space:nowrap;
 
@@ -128,7 +138,7 @@ text-overflow:ellipsis;
 
 .visited-info p{
 
-margin:4px 0 0;
+margin-top:5px;
 
 font-size:12px;
 
@@ -140,21 +150,13 @@ color:#94A3B8;
 
 color:#8B5CF6;
 
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
 }
 
 .empty{
 
-padding:22px;
+padding:28px;
 
 text-align:center;
-
-font-size:14px;
 
 color:#94A3B8;
 

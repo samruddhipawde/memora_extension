@@ -41,6 +41,21 @@ class User(Base):
         default=True
     )
 
+    dark_mode = Column(
+        Boolean,
+        default=True
+    )
+
+    notifications = Column(
+        Boolean,
+        default=True
+    )
+
+    auto_save = Column(
+        Boolean,
+        default=True
+    )
+
     created_at = Column(
         DateTime(timezone=True),
         server_default=func.now()
@@ -57,5 +72,3 @@ class User(Base):
         back_populates="user",
         cascade="all, delete-orphan"
     )
-
-    

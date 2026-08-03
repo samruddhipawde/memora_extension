@@ -297,3 +297,25 @@ padding:0 12px;
 }
 
 }
+
+.profile-box{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:8px 12px;
+    border-radius:16px;
+    cursor:pointer;
+    transition:all .3s ease;
+}
+
+.profile-box:hover{
+    border:1px solid #8B5CF6;
+    background:rgba(139,92,246,.08);
+    box-shadow:0 0 18px rgba(139,92,246,.25);
+}
+
+.profile-box.active{
+    border:1px solid #8B5CF6;
+    background:rgba(139,92,246,.10);
+    box-shadow:0 0 20px rgba(139,92,246,.35);
+}

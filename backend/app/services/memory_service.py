@@ -36,13 +36,7 @@ def save_memory(
 
     if existing_memory:
 
-        from datetime import datetime
-        from datetime import timezone
-
-        existing_memory.last_opened = datetime.now(
-            timezone.utc
-        )
-
+        existing_memory.last_opened = datetime.now(timezone.utc)
         existing_memory.visit_count += 1
 
         db.commit()
@@ -50,16 +44,12 @@ def save_memory(
 
         return existing_memory
 
+    # Generate AI data
     summary = generate_summary(raw_content)
-
     tags = generate_tags(raw_content)
 
     reading_time = calculate_reading_time(raw_content)
-
     domain = extract_domain(url)
-
-    from datetime import datetime
-    from datetime import timezone
 
     memory = Memory(
         user_id=user_id,
@@ -80,17 +70,18 @@ def save_memory(
     db.commit()
     db.refresh(memory)
 
+    # Store embedding in Chroma
     store_embedding(
-    memory.id,
-    user_id,
-    memory.title,
-    summary,
-    tags,
-    raw_content
-)
+        memory_id=memory.id,
+        user_id=user_id,
+        title=memory.title,
+        summary=summary,
+        tags=tags,
+        url=memory.url,
+        content=raw_content
+    )
 
     return memory
-
 from sqlalchemy.orm import Session
 from app.models.memory_model import Memory
 
@@ -423,3 +414,57 @@ def get_memory_details(
         )
         .first()
     )
+# ===============================
+# EXPORT MEMORIES
+# ===============================
+
+def export_memories(
+    db: Session,
+    user_id: int
+):
+    return (
+        db.query(Memory)
+        .filter(Memory.user_id == user_id)
+        .all()
+    )
+
+
+# ===============================
+# BACKUP MEMORIES
+# ===============================
+
+def backup_memories(
+    db: Session,
+    user_id: int
+):
+    return (
+        db.query(Memory)
+        .filter(Memory.user_id == user_id)
+        .all()
+    )
+
+
+# ===============================
+# DELETE ALL MEMORIES
+# ===============================
+
+def delete_all_memories(
+    db: Session,
+    user_id: int
+):
+
+    memories = (
+        db.query(Memory)
+        .filter(Memory.user_id == user_id)
+        .all()
+    )
+
+    for memory in memories:
+        delete_embedding(memory.id)
+        db.delete(memory)
+
+    db.commit()
+
+    return {
+        "message": "All memories deleted successfully."
+    }

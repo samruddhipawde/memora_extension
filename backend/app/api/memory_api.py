@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-
+from app.models.memory_model import Memory
 from app.database.database import get_db
 
 from app.models.user_model import User
@@ -33,7 +33,7 @@ from app.services.memory_service import (
     get_top_domains,
     get_top_tags,
     get_most_visited,
-    get_memory_details
+    get_memory_details,
 )
 
 
@@ -93,8 +93,6 @@ def save_page(
         raw_content=request.raw_content
     )
 
-
-
 @router.post("/search")
 def search_memories(
     request: SearchRequest,
@@ -107,28 +105,27 @@ def search_memories(
         top_k=5
     )
 
-
     response = []
 
-    ids = results.get("ids", [[]])[0]
-    documents = results.get("documents", [[]])[0]
-    metadatas = results.get("metadatas", [[]])[0]
-    distances = results.get("distances", [[]])[0]
+    ids = results.get("ids", [])
+    metadatas = results.get("metadatas", [])
+    distances = results.get("distances", [])
 
     for i in range(len(ids)):
+        metadata = metadatas[i] if i < len(metadatas) else {}
+
         response.append(
             {
-                "memory_id": ids[i],
-                "title": metadatas[i].get("title", ""),
-                "content": documents[i],
-                "distance": distances[i],
+                "memory_id": int(ids[i]),
+                "title": metadata.get("title", ""),
+                "summary": metadata.get("summary", ""),
+                "tags": metadata.get("tags", ""),
+                "url": metadata.get("url", ""),
+                "distance": distances[i] if i < len(distances) else 0,
             }
         )
 
     return response
-
-
-
 
 
 @router.get(
@@ -143,7 +140,6 @@ def all_memories(
     tag: str | None = None,
     collection_id: int | None = None,
     sort: str = "recent",
-
     db: Session = Depends(get_db),
     user: User = Depends(current_user)
 ):
@@ -160,8 +156,6 @@ def all_memories(
         sort=sort
     )
 
-
-
 @router.get(
     "/favorites",
     response_model=list[MemoryResponse]
@@ -177,6 +171,51 @@ def favorite_memories(
     )
 
 
+@router.get("/export")
+def export_memories_api(
+    db: Session = Depends(get_db),
+    user: User = Depends(current_user)
+):
+    return get_all_memories(
+        db=db,
+        user_id=user.id,
+        page=1,
+        limit=100000
+    )
+
+
+@router.get("/backup")
+def backup_memories_api(
+    db: Session = Depends(get_db),
+    user: User = Depends(current_user)
+):
+    return get_all_memories(
+        db=db,
+        user_id=user.id,
+        page=1,
+        limit=100000
+    )
+
+
+@router.delete("/delete-all")
+def delete_all_memories_api(
+    db: Session = Depends(get_db),
+    user: User = Depends(current_user)
+):
+    memories = (
+        db.query(Memory)
+        .filter(Memory.user_id == user.id)
+        .all()
+    )
+
+    for memory in memories:
+        db.delete(memory)
+
+    db.commit()
+
+    return {
+        "message": "All memories deleted successfully."
+    }
 
 @router.get(
     "/{memory_id}/details",
@@ -423,3 +462,5 @@ def ai_insight(
         db,
         user.id
     )
+
+

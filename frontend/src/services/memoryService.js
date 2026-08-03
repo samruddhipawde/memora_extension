@@ -314,3 +314,36 @@ export const getAIInsight = async()=>{
     return response.data;
 
 };
+
+export const exportMemories = async () => {
+
+    const response = await axios.get(
+        `${API_URL}/memory/export`,
+        getAuthConfig()
+    );
+
+    return response.data;
+};
+
+
+export const backupMemories = async () => {
+
+    const response = await axios.get(
+        `${API_URL}/memory/backup`,
+        getAuthConfig()
+    );
+
+    return response.data;
+};
+
+
+export const deleteAllMemories = async () => {
+
+    const response = await axios.delete(
+        `${API_URL}/memory/delete-all`,
+        getAuthConfig()
+    );
+
+    return response.data;
+};
+

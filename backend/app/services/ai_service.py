@@ -2,7 +2,6 @@ from app.core.groq_client import client
 from app.core.embeddings import generate_embedding
 from app.core.chroma import collection
 
-
 MODEL = "llama-3.3-70b-versatile"
 
 
@@ -26,8 +25,7 @@ def generate_summary(text: str):
         temperature=0.3
     )
 
-    return response.choices[0].message.content
-
+    return response.choices[0].message.content.strip()
 
 
 def generate_tags(content: str):
@@ -38,10 +36,8 @@ def generate_tags(content: str):
             {
                 "role": "system",
                 "content": (
-                    "You generate webpage tags. "
-                    "Return ONLY 5 comma-separated tags. "
-                    "No numbering. "
-                    "No explanation."
+                    "Generate exactly 5 comma-separated tags. "
+                    "Return only the tags."
                 )
             },
             {
@@ -55,13 +51,13 @@ def generate_tags(content: str):
     return response.choices[0].message.content.strip()
 
 
-
 def store_embedding(
     memory_id: int,
     user_id: int,
     title: str,
     summary: str,
     tags: str,
+    url: str,
     content: str
 ):
 
@@ -75,13 +71,14 @@ Summary:
 Tags:
 {tags}
 
+URL:
+{url}
+
 Content:
 {content[:5000]}
 """
 
-
     embedding = generate_embedding(searchable_document)
-
 
     collection.add(
         ids=[str(memory_id)],
@@ -89,14 +86,17 @@ Content:
         documents=[searchable_document],
         metadatas=[
             {
+                "memory_id": str(memory_id),
+                "user_id": str(user_id),
                 "title": title,
                 "summary": summary,
                 "tags": tags,
-                "user_id": user_id
+                "url": url,
             }
         ]
     )
 
+    print(f"Embedding stored successfully: {memory_id}")
 
 
 def semantic_search(
@@ -107,13 +107,10 @@ def semantic_search(
 
     embedding = generate_embedding(query)
 
-
     results = collection.query(
         query_embeddings=[embedding],
         n_results=top_k,
-        where={
-            "user_id": user_id
-        },
+        where={"user_id": str(user_id)},
         include=[
             "documents",
             "metadatas",
@@ -121,9 +118,12 @@ def semantic_search(
         ]
     )
 
-
-    print(results)
-
+    print("=" * 50)
+    print("Semantic Search")
+    print("Query:", query)
+    print("User:", user_id)
+    print("Results:", results)
+    print("=" * 50)
 
     return {
         "ids": results.get("ids", [[]])[0],
@@ -131,7 +131,6 @@ def semantic_search(
         "metadatas": results.get("metadatas", [[]])[0],
         "distances": results.get("distances", [[]])[0]
     }
-
 
 def delete_embedding(memory_id: int):
 

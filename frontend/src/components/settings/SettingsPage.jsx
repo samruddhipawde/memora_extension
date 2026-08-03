@@ -1,5 +1,6 @@
 import "./SettingsPage.css";
 
+import { useEffect, useState } from "react";
 import {
   Moon,
   Bell,
@@ -13,11 +14,84 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
+import {
+  getSettings,
+  updateSettings,
+  deleteAccount,
+} from "../../services/userService";
+
+import ManageMemoriesModal from "./ManageMemoriesModal";
+import PrivacyModal from "./PrivacyModal";
+
 const SettingsPage = () => {
 
   const navigate = useNavigate();
 
   const { logout } = useAuth();
+
+  const [openManage, setOpenManage] = useState(false);
+  const [openPrivacy, setOpenPrivacy] = useState(false);
+
+  const [settings, setSettings] = useState({
+    dark_mode: true,
+    notifications: true,
+    auto_save: true,
+  });
+
+  useEffect(() => {
+    loadSettings();
+  }, []);
+
+  const loadSettings = async () => {
+    try {
+      const data = await getSettings();
+      setSettings(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const changeSetting = async (key) => {
+
+    const updated = {
+      ...settings,
+      [key]: !settings[key],
+    };
+
+    setSettings(updated);
+
+    try {
+      await updateSettings(updated);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+
+    const confirmDelete = window.prompt(
+      "Type DELETE to permanently delete your account."
+    );
+
+    if (confirmDelete !== "DELETE") return;
+
+    try {
+
+      await deleteAccount();
+
+      logout();
+
+      navigate("/login");
+
+    } catch (err) {
+
+      console.log(err);
+
+      alert("Unable to delete account.");
+
+    }
+
+  };
 
   const handleLogout = () => {
 
@@ -29,107 +103,167 @@ const SettingsPage = () => {
 
   return (
 
-    <div className="settings-page">
+    <>
 
-      <h1>Settings</h1>
+      <div className="settings-page">
 
-      <p>Manage your Memora experience.</p>
+        <h1>Settings</h1>
 
-      <div className="settings-list">
+        <p>Manage your Memora experience.</p>
 
-        <div className="setting-card">
+        <div className="settings-list">
 
-          <div>
+          {/* Dark Theme */}
 
-            <Moon size={22} />
+          <div className="setting-card">
 
-            <span>Dark Theme</span>
+            <div>
 
-          </div>
+              <Moon size={22} />
 
-          <input type="checkbox" defaultChecked />
+              <span>Dark Theme</span>
 
-        </div>
+            </div>
 
-        <div className="setting-card">
-
-          <div>
-
-            <Bell size={22} />
-
-            <span>Notifications</span>
+            <input
+              type="checkbox"
+              checked={settings.dark_mode}
+              onChange={() => changeSetting("dark_mode")}
+            />
 
           </div>
 
-          <input type="checkbox" defaultChecked />
+          {/* Notifications */}
 
-        </div>
+          <div className="setting-card">
 
-        <div className="setting-card">
+            <div>
 
-          <div>
+              <Bell size={22} />
 
-            <Shield size={22} />
+              <span>Notifications</span>
 
-            <span>Privacy & Security</span>
+            </div>
 
-          </div>
-
-          <ChevronRight size={20} />
-
-        </div>
-
-        <div className="setting-card">
-
-          <div>
-
-            <Database size={22} />
-
-            <span>Manage Memories</span>
+            <input
+              type="checkbox"
+              checked={settings.notifications}
+              onChange={() => changeSetting("notifications")}
+            />
 
           </div>
 
-          <ChevronRight size={20} />
+          {/* Auto Save */}
 
-        </div>
+          <div className="setting-card">
 
-        <div className="setting-card danger">
+            <div>
 
-          <div>
+              <Database size={22} />
 
-            <Trash2 size={22} />
+              <span>Auto Save Memories</span>
 
-            <span>Delete Account</span>
+            </div>
 
-          </div>
-
-          <ChevronRight size={20} />
-
-        </div>
-
-        <div
-
-          className="setting-card logout"
-
-          onClick={handleLogout}
-
-        >
-
-          <div>
-
-            <LogOut size={22} />
-
-            <span>Logout</span>
+            <input
+              type="checkbox"
+              checked={settings.auto_save}
+              onChange={() => changeSetting("auto_save")}
+            />
 
           </div>
 
-          <ChevronRight size={20} />
+          {/* Privacy */}
+
+          <div
+            className="setting-card"
+            onClick={() => setOpenPrivacy(true)}
+          >
+
+            <div>
+
+              <Shield size={22} />
+
+              <span>Privacy & Security</span>
+
+            </div>
+
+            <ChevronRight size={20} />
+
+          </div>
+
+          {/* Manage Memories */}
+
+          <div
+            className="setting-card"
+            onClick={() => setOpenManage(true)}
+          >
+
+            <div>
+
+              <Database size={22} />
+
+              <span>Manage Memories</span>
+
+            </div>
+
+            <ChevronRight size={20} />
+
+          </div>
+
+          {/* Delete Account */}
+
+          <div
+            className="setting-card danger"
+            onClick={handleDeleteAccount}
+          >
+
+            <div>
+
+              <Trash2 size={22} />
+
+              <span>Delete Account</span>
+
+            </div>
+
+            <ChevronRight size={20} />
+
+          </div>
+
+          {/* Logout */}
+
+          <div
+            className="setting-card logout"
+            onClick={handleLogout}
+          >
+
+            <div>
+
+              <LogOut size={22} />
+
+              <span>Logout</span>
+
+            </div>
+
+            <ChevronRight size={20} />
+
+          </div>
 
         </div>
 
       </div>
 
-    </div>
+      <ManageMemoriesModal
+        open={openManage}
+        onClose={() => setOpenManage(false)}
+      />
+
+      <PrivacyModal
+        open={openPrivacy}
+        onClose={() => setOpenPrivacy(false)}
+      />
+
+    </>
 
   );
 

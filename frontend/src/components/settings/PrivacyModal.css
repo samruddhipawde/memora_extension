@@ -1,0 +1,59 @@
+.modal-overlay{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.6);
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:1000;
+}
+
+.privacy-modal{
+width:520px;
+background:#111827;
+border-radius:20px;
+padding:30px;
+border:1px solid rgba(255,255,255,.08);
+box-shadow:0 25px 60px rgba(0,0,0,.45);
+}
+
+.privacy-modal h2{
+color:white;
+margin-bottom:25px;
+}
+
+.privacy-item{
+display:flex;
+gap:16px;
+margin-bottom:22px;
+align-items:flex-start;
+}
+
+.privacy-item svg{
+color:#8B5CF6;
+margin-top:3px;
+}
+
+.privacy-item h4{
+color:white;
+margin-bottom:6px;
+}
+
+.privacy-item p{
+color:#94A3B8;
+font-size:14px;
+}
+
+.privacy-close-btn{
+    width:100%;
+    margin-top:18px;
+    padding:12px 18px;
+
+    border:none;
+    border-radius:12px;
+
+    background:#8B5CF6;
+    color:white;
+
+    cursor:pointer;
+}

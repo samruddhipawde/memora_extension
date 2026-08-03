@@ -1,78 +1,143 @@
 .chat-widget{
-    background:#111827;
-    border:1px solid rgba(255,255,255,.06);
-    border-radius:24px;
-    padding:26px;
-    margin-top:28px;
+
+background:#111827;
+
+border:1px solid rgba(255,255,255,.06);
+
+border-radius:24px;
+
+padding:22px;
+
+transition:.3s;
+
+}
+
+.chat-widget:hover{
+
+border-color:#8B5CF6;
+
+box-shadow:0 0 24px rgba(139,92,246,.15);
+
 }
 
 .chat-header{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    margin-bottom:18px;
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+margin-bottom:18px;
+
 }
 
 .chat-header img{
-    width:22px;
-    height:22px;
-    object-fit:contain;
-    border-radius:50%;
-    flex-shrink:0;
+
+width:42px;
+
+height:42px;
+
+border-radius:12px;
+
 }
 
 .chat-header h3{
-    color:white;
-    font-size:22px;
-    margin:0;
+
+margin:0;
+
+font-size:20px;
+
+font-weight:600;
+
+color:white;
+
 }
 
 .chat-widget textarea{
-    width:100%;
-    min-height:120px;
-    resize:none;
-    border:none;
-    outline:none;
-    background:#0F172A;
-    border-radius:18px;
-    padding:18px;
-    color:white;
-    font-size:15px;
-    margin-bottom:18px;
+
+width:100%;
+
+min-height:110px;
+
+background:#0F172A;
+
+border:none;
+
+outline:none;
+
+resize:none;
+
+border-radius:14px;
+
+padding:16px;
+
+font-size:14px;
+
+color:white;
+
+margin-bottom:18px;
+
 }
 
 .chat-widget textarea::placeholder{
-    color:#94A3B8;
+
+color:#94A3B8;
+
 }
 
 .chat-widget button{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    background:linear-gradient(135deg,#8B5CF6,#2563EB);
-    color:white;
-    border:none;
-    padding:14px 24px;
-    border-radius:14px;
-    cursor:pointer;
-    font-weight:600;
-    transition:.3s;
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+padding:13px 22px;
+
+border:none;
+
+border-radius:12px;
+
+background:linear-gradient(135deg,#8B5CF6,#2563EB);
+
+color:white;
+
+font-weight:600;
+
+cursor:pointer;
+
+transition:.3s;
+
 }
 
 .chat-widget button:hover{
-    opacity:.95;
+
+transform:translateY(-2px);
+
 }
 
 .chat-answer{
-    margin-top:20px;
-    background:#0F172A;
-    padding:18px;
-    border-radius:16px;
-    color:#CBD5E1;
-    line-height:1.8;
+
+margin-top:18px;
+
+padding:16px;
+
+border-radius:14px;
+
+background:#0F172A;
+
+color:#CBD5E1;
+
+line-height:1.7;
+
 }
 
 .loading{
-    margin-top:16px;
-    color:#94A3B8;
+
+margin-top:16px;
+
+color:#94A3B8;
+
 }

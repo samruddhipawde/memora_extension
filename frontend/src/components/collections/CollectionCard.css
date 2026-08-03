@@ -1,28 +1,38 @@
 .collection-card{
 
-    background:#111827;
-
-    border:1px solid rgba(255,255,255,.08);
-
-    border-radius:18px;
-
-    padding:22px;
-
     display:flex;
-
     justify-content:space-between;
-
     align-items:center;
 
-    transition:.3s;
+    padding:18px;
+
+    background:#111827;
+
+    border:1px solid rgba(139,92,246,.28);
+
+    border-radius:20px;
+
+    box-shadow:
+        0 0 0 rgba(139,92,246,0),
+        0 8px 30px rgba(0,0,0,.25);
+
+    transition:all .3s ease;
+
+    cursor:pointer;
+
+    margin-bottom:14px;
 
 }
 
 .collection-card:hover{
 
-    transform:translateY(-6px);
+    border-color:#8B5CF6;
 
-    box-shadow:0 15px 30px rgba(0,0,0,.35);
+    box-shadow:
+        0 0 25px rgba(139,92,246,.30),
+        0 12px 35px rgba(139,92,246,.12);
+
+    transform:translateY(-3px);
 
 }
 
@@ -30,56 +40,92 @@
 
     display:flex;
 
-    gap:18px;
-
     align-items:center;
 
-    cursor:pointer;
+    gap:16px;
+
+    flex:1;
 
 }
 
 .collection-icon{
 
-    width:55px;
+    width:54px;
 
-    height:55px;
+    height:54px;
 
-    border-radius:14px;
-
-    background:#8b5cf6;
+    border-radius:16px;
 
     display:flex;
 
-    justify-content:center;
-
     align-items:center;
 
-    color:white;
+    justify-content:center;
+
+    background:linear-gradient(135deg,#8B5CF6,#6D28D9);
+
+    color:#fff;
+
+    flex-shrink:0;
+
+    box-shadow:0 0 18px rgba(139,92,246,.35);
 
 }
 
-.collection-card h3{
+.collection-top h3{
 
-    color:white;
+    margin:0;
+
+    font-size:16px;
+
+    font-weight:700;
+
+    color:#fff;
 
 }
 
-.collection-card p{
+.collection-top p{
 
-    color:#94a3b8;
+    margin-top:5px;
 
-    margin-top:4px;
+    color:#94A3B8;
+
+    font-size:13px;
 
 }
 
 .delete-btn{
 
+    width:42px;
+
+    height:42px;
+
     border:none;
 
-    background:none;
+    border-radius:12px;
 
-    color:#ef4444;
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:#1E293B;
+
+    color:#CBD5E1;
 
     cursor:pointer;
+
+    transition:.25s;
+
+}
+
+.delete-btn:hover{
+
+    background:#EF4444;
+
+    color:#fff;
+
+    transform:scale(1.08);
 
 }

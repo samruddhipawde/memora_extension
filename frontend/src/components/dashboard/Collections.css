@@ -2,11 +2,25 @@
 
     background:#111827;
 
-    border-radius:20px;
+    border:1px solid rgba(139,92,246,.28);
 
-    padding:18px;
+    border-radius:22px;
 
-    border:1px solid rgba(255,255,255,.06);
+    padding:22px;
+
+    box-shadow:
+        0 0 24px rgba(139,92,246,.10);
+
+    transition:.3s ease;
+
+}
+
+.collections-card:hover{
+
+    border-color:#8B5CF6;
+
+    box-shadow:
+        0 0 32px rgba(139,92,246,.28);
 
 }
 
@@ -18,7 +32,7 @@
 
     align-items:center;
 
-    margin-bottom:16px;
+    margin-bottom:18px;
 
 }
 
@@ -26,9 +40,19 @@
 
     margin:0;
 
+    color:#fff;
+
     font-size:20px;
 
-    color:white;
+    font-weight:700;
+
+}
+
+.collections-card p{
+
+    color:#94A3B8;
+
+    font-size:14px;
 
 }
 
@@ -38,15 +62,23 @@
 
     align-items:center;
 
-    padding:12px;
+    justify-content:space-between;
 
     background:#0F172A;
 
-    border-radius:14px;
+    border-radius:16px;
 
-    margin-bottom:10px;
+    padding:15px 18px;
+
+    margin-bottom:12px;
 
     transition:.25s;
+
+}
+
+.collection-item:last-child{
+
+    margin-bottom:0;
 
 }
 
@@ -54,20 +86,18 @@
 
     background:#1E293B;
 
+    transform:translateX(4px);
+
 }
 
 .collection-item h4{
 
     margin:0;
 
-    color:white;
+    color:#fff;
 
-    font-size:14px;
+    font-size:15px;
 
-}
-
-.collections-card p{
-
-    color:#94A3B8;
+    font-weight:600;
 
 }
