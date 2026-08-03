@@ -72,6 +72,8 @@
 
 .login-card input{
 
+    width:100%;
+
     height:56px;
 
     background:#1F2937;
@@ -86,6 +88,8 @@
 
     font-size:16px;
 
+    box-sizing:border-box;
+
 }
 
 .login-card input:focus{
@@ -96,7 +100,75 @@
 
 }
 
-.login-card button{
+/* PASSWORD FIELD */
+
+.password-field{
+
+    position:relative;
+
+    width:100%;
+
+}
+
+.password-field input{
+
+    padding-right:50px;
+
+}
+
+.eye-btn{
+
+    position:absolute;
+
+    top:50%;
+
+    right:16px;
+
+    transform:translateY(-50%);
+
+    background:none;
+
+    border:none;
+
+    padding:0;
+
+    margin:0;
+
+    width:auto;
+
+    height:auto;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    cursor:pointer;
+
+    color:#9CA3AF;
+
+}
+
+.eye-btn:hover{
+
+    background:none;
+
+    color:#9CA3AF;
+
+    transform:translateY(-50%);
+
+}
+
+.eye-btn svg{
+
+    width:20px;
+
+    height:20px;
+
+}
+
+.login-card button:not(.eye-btn){
 
     height:56px;
 
@@ -118,7 +190,7 @@
 
 }
 
-.login-card button:hover{
+.login-card button:not(.eye-btn):hover{
 
     background:#7C3AED;
 

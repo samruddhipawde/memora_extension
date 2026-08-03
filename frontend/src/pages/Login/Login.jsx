@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 import { useNavigate, Link } from "react-router-dom";
 import Logo from "../../assets/logo/memora-logo.png";
 import { useAuth } from "../../context/AuthContext";
@@ -7,13 +8,15 @@ import toast from "react-hot-toast";
 
 const Login = () => {
   const navigate = useNavigate();
-const { login } = useAuth();
+  const { login } = useAuth();
+
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
 
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
 
   const handleChange = (e) => {
@@ -23,54 +26,31 @@ const { login } = useAuth();
     });
   };
 
- const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  e.preventDefault();
+    setLoading(true);
+    setError("");
 
-  setLoading(true);
+    try {
+      await login(form.email, form.password);
 
-  setError("");
+      toast.success("✨ Login Successful");
 
-  try {
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
+    } catch (err) {
+      setError(err.response?.data?.detail || "Login Failed");
+      toast.error("Invalid Email or Password");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    await login(form.email, form.password);
-
-    toast.success("✨ Login Successful");
-
-    setTimeout(() => {
-
-      navigate("/");
-
-    },1000);
-
-  }
-
-  catch(err){
-
-    setError(
-
-      err.response?.data?.detail ||
-
-      "Login Failed"
-
-    );
-
-    toast.error("Invalid Email or Password");
-
-  }
-
-  finally{
-
-    setLoading(false);
-
-  }
-
-};
   return (
     <div className="login-page">
-
       <div className="login-card">
-
         <img
           src={Logo}
           className="login-logo"
@@ -89,17 +69,35 @@ const { login } = useAuth();
             type="email"
             name="email"
             placeholder="Email"
+            value={form.email}
             onChange={handleChange}
             required
           />
 
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            onChange={handleChange}
-            required
-          />
+          <div className="password-field">
+
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              placeholder="Password"
+              value={form.password}
+              onChange={handleChange}
+              required
+            />
+
+            <button
+              type="button"
+              className="eye-btn"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? (
+                <EyeOff size={18} />
+              ) : (
+                <Eye size={18} />
+              )}
+            </button>
+
+          </div>
 
           {error && (
             <div className="error">
@@ -114,17 +112,13 @@ const { login } = useAuth();
         </form>
 
         <span>
-
-          Don't have an account?
-
+          Don't have an account?{" "}
           <Link to="/signup">
             Create Account
           </Link>
-
         </span>
 
       </div>
-
     </div>
   );
 };
