@@ -584,7 +584,7 @@ FastAPI • Vector Search • LLM Integration
 
 <a href="https://github.com/YOUR_FRIEND_USERNAME">
 
-<img src="https://github.com/YOUR_FRIEND_USERNAME.png" width="140"/>
+<img src="https://github.com/samruddhipawde.png" width="140"/>
 
 </a>
 
@@ -592,7 +592,7 @@ FastAPI • Vector Search • LLM Integration
 
 **Frontend • UI/UX**
 
-React • Dashboard • User Experience
+React • Dashboard • User Experience . semantic search . ai integration
 
 </td>
 
